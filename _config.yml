@@ -1,2 +1,3 @@
 title: "Jekyll Actions Demo"
 highlighter: rouge
+baseurl: "/blog" # Add this line

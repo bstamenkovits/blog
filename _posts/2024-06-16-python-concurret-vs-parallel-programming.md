@@ -66,7 +66,7 @@ plt.title('Thread Activity Visualization with Context Switches')
 plt.yticks(ticks=[1, 2], labels=['Thread 1', 'Thread 2'])
 plt.show()
 ```
-![context-switching](/assets/images/2024-06-16-python-concurrent-vs-parallel-context-switching.png)
+![context-switching]({{ site.baseurl }}/assets/images/2024-06-16-python-concurrent-vs-parallel-context-switching.png)
 
 ### Example: Downloading Files
 Threading is often used in I/O operations where the python program has to wait on other external services to complete their tasks. A good example of this is downloading an image from a website. Python will make a `GET` request to the web server of the website, and it will take some time before the actual image data is accessible to Python. The following steps may result in waiting times
@@ -77,7 +77,7 @@ Threading is often used in I/O operations where the python program has to wait o
 * Writing data to buffer
 * Writing data to RAM
 
-![python-download](/assets/images/2024-06-16-python-concurrent-vs-parallel-python-download.png)
+![python-download]({{ site.baseurl }}/assets/images/2024-06-16-python-concurrent-vs-parallel-python-download.png)
 
 ```python
 import time
@@ -132,7 +132,7 @@ Having the Python interpreter work on two tasks at the same time is called **par
 
 In python this implementation is called **multiprocessing**. Modern CPUs contain multiple cores (processing unites), a single process is a single instance of a CPU core. We can assign different functions to different processes, which will work on those tasks independently.
 
-![multithreading](/assets/images/2024-06-16-python-concurrent-vs-parallel-multithreading.avif)
+![multithreading]({{ site.baseurl }}/assets/images/2024-06-16-python-concurrent-vs-parallel-multithreading.avif)
 
 ### Global Interpreter Lock
 Python is a high level programming language that takes care of memory management and garbage collection on its own. In python if you assign a variable to a value like `x = [1, 2, 3]`, then the value of 10 will be located at a certain memory address (e.g. `0x1c8a6dd9b80`). The variable `x` points directly at said address.

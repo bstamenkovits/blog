@@ -1,11 +1,11 @@
 <div class="nav-container">
     <div class="nav-left">
         <!-- <img src="/assets/images/logo.png" alt="Blog Logo" class="blog-logo"> -->
-        <a href="/" class="blog-title">BLOG</a>
+        <a href="{{ site.baseurl }}/" class="blog-title">BLOG</a>
     </div>
     <div class="nav-right">
         {% for item in site.data.navigation %}
-            <a href="{{ item.link }}" class="nav-item">{{ item.name }}</a>
+            <a href="{{ site.baseurl }}/{{ item.link }}" class="nav-item">{{ item.name }}</a>
         {% endfor %}
     </div>
 </div>
