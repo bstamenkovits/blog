@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
   </head>
   <body>
     {% include navigation.html %}
-    {{ content }}
+    <div class="main-container">
+      {{ content }}
+    </div>
   </body>
 </html>
