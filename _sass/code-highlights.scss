@@ -8,8 +8,18 @@
   font-size: 1em;
 }
 .highlight .k { color: #66d9ef; } /* Keyword */
+.highlight .ow { color: #66d9ef; } /* Keyword */
 .highlight .s { color: #e6db74; } /* String */
 .highlight .c { color: #75715e; } /* Comment */
 .highlight .n { color: #f8f8f2; } /* Name */
 .highlight .o { color: #f92672; } /* Operator */
 .highlight .mi { color: #ae81ff; } /* Number */
+// .highlight .p { color: #f8f8f2; } /* Punctuation */
+.highlight .c1 { color: #797979; } /* comment name */
+
+p > code, li > code {
+  background: #c7c7c7;
+  color: #a52929;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
