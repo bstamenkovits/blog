@@ -38,8 +38,17 @@
 .blog-title {
   font-size: 2em;
   font-weight: 600;
+  color: var(--text-color);
+  text-decoration: none;
 }
 
 .nav-item {
     margin: 0 10px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav-item:hover {
+    color: var(--primary-color);
 }
