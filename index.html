@@ -2,6 +2,25 @@
 layout: default
 title: Home
 ---
-<h1>{{ "Hello World!" | downcase }}</h1>
-<p>Welcome to my website. This is a simple example of a Jekyll page.</p>
-<p>Feel free to explore the site and learn more about Jekyll.</p>
+<div id="hero">
+    <h1>Béla's </h1>
+    <h1>Tech Blog</h1>
+    <p>Welcome to my blog where I share little nuggets of information/knowledge about the things I learn about in all things data, technology, programming, and more. I am a <span class="text-highlight">Data Engineer</span>, but I also enjoy making <span class="text-highlight">Web Apps</span> and exploring the world of <span class="text-highlight">AI and machine learning</span>.</p>
+</div>
+
+
+<h1>Latest Posts</h1>
+<ul class="archive-post-list">
+  {% for post in site.posts %}
+    <li class="archive-post">
+      <h2>
+        <a href="{{ site.baseurl }}/{{ post.url }}">{{ post.title }}</a>
+      </h2>
+      <a href="{{ site.baseurl }}/{{ post.url }}">
+        <img src="{{ site.baseurl }}/assets/images/{{ post.image }}" alt="{{post.image}}">
+      </a>
+
+      {{ post.excerpt }}
+    </li>
+  {% endfor %}
+</ul>

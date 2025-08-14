@@ -1,0 +1,23 @@
+
+#hero {
+    margin-top: 200px;
+    color: var(--text-color);
+    margin-bottom: 300px;
+}
+
+#hero > h1 {
+    font-size: 8em;
+    margin: -40px 0;
+    // padding: -100px 0;
+}
+
+#hero > p {
+    font-size: 1.3em;
+    margin: 100px 0;
+}
+
+.text-highlight {
+    background-color: var(--primary-color);
+    font-weight: bold;
+    color: rgb(39, 39, 39);
+}
