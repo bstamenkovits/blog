@@ -1,35 +1,94 @@
-.archive-post-list {
-    padding: 0 40px ;
+
+// Timeline styles
+
+.archive-timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 40px 0 40px 0;
 }
 
-.archive-post {
-    list-style: none;
-    margin-bottom: 80px;
+// The vertical line spanning the whole timeline
+.archive-timeline::before {
+    content: '';
+    position: absolute;
+    left: calc(100px + 24px + 20px); /* 100px date + 24px padding + 20px (half of 40px container) */
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color, #007acc);
+    z-index: 0;
+    transform: translateX(-50%);
 }
 
-.archive-post > p {
-    margin: 0 0;
+.archive-timeline-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 1;
 }
 
-.archive-post > h2 > a {
+.archive-timeline-date {
+    min-width: 100px;
+    text-align: right;
+    padding-right: 24px;
+    color: var(--text-color-secondary, #888);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 2px;
+}
+
+.archive-timeline-circle-container {
+    position: relative;
+    width: 40px;
+    min-width: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 2;
+}
+
+
+// Remove the per-row line, now handled by the container
+.archive-timeline-line {
+    display: none;
+}
+
+.archive-timeline-circle {
+    width: 16px;
+    height: 16px;
+    background: var(--background-color, #fff);
+    border: 4px solid var(--primary-color, #007acc);
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0);
+    z-index: 2;
+    margin: 0 auto;
+    box-shadow: 0 0 0 2px var(--background-color, #fff);
+}
+
+.archive-timeline-content {
+    flex: 1;
+    padding-left: 24px;
+    min-width: 0;
+}
+
+.archive-timeline-content h2 {
+    margin: 0 0 8px 0;
+    font-size: 1.3rem;
+}
+
+.archive-timeline-content a {
     color: var(--text-color);
     text-decoration: none;
+    transition: color 0.2s;
 }
 
-.archive-post > h2 > a:hover {
+.archive-timeline-content a:hover {
     color: var(--primary-color);
-}
-
-.archive-post > a > img {
-    max-width: 45%;
-    height: auto;
-    margin: 10px 0;
-    border-radius: 8px;
-    // margin:2px;
-}
-
-.archive-post > a > img:hover {
-    // border: 1px solid var(--primary-color);
-    outline: 2px solid var(--primary-color);
-
 }
