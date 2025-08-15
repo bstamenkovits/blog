@@ -86,3 +86,10 @@ th, td {
   outline: none;
   background: none;
 }
+
+blockquote > p {
+  border-left: 10px solid var(--primary-color);
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+}
