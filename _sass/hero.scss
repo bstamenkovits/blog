@@ -21,3 +21,53 @@
     font-weight: bold;
     color: rgb(39, 39, 39);
 }
+
+
+.archive-post-list {
+    padding: 0 40px ;
+}
+
+.archive-post {
+    list-style: none;
+    margin-bottom: 80px;
+}
+
+.archive-post > p {
+    margin: 0 0;
+}
+
+.archive-post > h2 {
+    margin: 0;
+}
+
+.archive-post > h3 {
+    font-weight: 400;
+    color: var(--text-color-secondary);
+    margin: 0;
+}
+
+.archive-post > h2 > a {
+    // font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.archive-post > h2 > a:hover {
+    color: var(--primary-color);
+}
+
+
+
+.archive-post > a > img {
+    max-width: 45%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 8px;
+    // margin:2px;
+}
+
+.archive-post > a > img:hover {
+    // border: 1px solid var(--primary-color);
+    outline: 2px solid var(--primary-color);
+
+}

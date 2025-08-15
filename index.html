@@ -11,11 +11,12 @@ title: Home
 
 <h1>Latest Posts</h1>
 <ul class="archive-post-list">
-  {% for post in site.posts %}
+  {% for post in site.posts limit:3 %}
     <li class="archive-post">
       <h2>
         <a href="{{ site.baseurl }}/{{ post.url }}">{{ post.title }}</a>
       </h2>
+      <h3>{{ post.date | date: "%Y-%m-%d" }} </h3>
       <a href="{{ site.baseurl }}/{{ post.url }}">
         <img src="{{ site.baseurl }}/assets/images/{{ post.image }}" alt="{{post.image}}">
       </a>
