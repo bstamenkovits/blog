@@ -4,10 +4,12 @@ author: bela
 image: 2025-08-16-sql-data-structures-&-the-anatomy-of-an-index/data_structures.jpg
 ---
 
+In traditional transactional databases (OLTP) data is stored as rows, which makes filtering a costly operation: the database engine needs to scan the entirety of the row during each operation. To make this process more efficient most database engines allow you to index columns (often your primary key). This article explores how databases store their data, what data structures are used, and how indexing can significantly improve performance.
 
-In it's simpelest form a database is simply a collection of information (i.e. data) that is stored somewhere. A text file or csv file is technically speaking a database as we are storing some information as bytes to the disk.
 
-# Storing & Reading Data
+# What is a Database?
+In it's simpelest form a database is simply a collection of information (i.e. data) that is stored somewhere. A text file or csv file is technically speaking a database as we are storing some information as bytes on the disk.
+
 The problem with storing data in such a way is that it is hard to retrieve individual specific datapoints: when we read a csv file we simply get a long list of characters. The only way to distinguish different rows is by having an escape character `\n`.
 
 To resolve this problem we could make each row the same length. For example if each row has a length `m`, then we know that we can go to the 6th index by going to the `6*m`th character.
@@ -34,8 +36,10 @@ In this solution one would need to track the length of each cell. If we allow th
 > 0000 0001 1111 1111 = 256
 > ```
 
-## Files On Disk
-Each database (e.g. Postgres, SQLite, SQL Server) will store their data slightly differently, but in general the data is stored in blocks of fixed sizes called pages. SQLite stores all of its data (all of its pages) into a single database file, while Postgress creates seperate files for each table. SQL Server on the other hand uses a combined approach where multiple tables are stored in data files, but there can be multiple data files per database.
+## How is Data Stored in a Data Base
+Each database (e.g. Postgres, SQLite, SQL Server) will store their data slightly differently, but in general the data is stored in blocks of fixed sizes called pages. The reason for this is that if everything was stored into a single object, then there is a chance that the table cannot be loaded into memory, by making it small blocks of predetermined sizes it is easy to iterate over them and index them (more on that later).
+
+SQLite stores all of its data (all of its pages) into a single database file, while Postgress creates seperate files for each table. SQL Server on the other hand uses a combined approach where multiple tables are stored in data files, but there can be multiple data files per database.
 
 In case of Postgress a table file will contain multiple pages. A seperate metadata catalog can be used to retrieve data from a specific page. For example (assuming each page is 8kb) if we know our row is located in page 2 inside of  `table_1.dat`, the database engine will read from the file starting at `2 * 8192 =  16384` bytes up to `3 * 8192 = 24576` bytes.
 
@@ -48,73 +52,20 @@ The Slot Array is a dictionary-like object that contains the offset for each dat
 ![page]({{ site.baseurl }}/assets/images/2025-08-16-sql-data-structures-&-the-anatomy-of-an-index/database-page.png)
 
 # Indexing
-When performing a SQL query
+Consider the following SQL query where we want to retrieve the information of a specific customer.
 
 ```sql
 select * from customers where customer_id = 'C100'
 ```
 
+The database engine will have to go scan each row in each page associated with the `customers` table sequentially, it will have to read each page into memomory one-by-one, and then read each data row one-by-one untill it finds the customer in question. This can be a very expensive operation... there has to be a better solution.
+
 ## Binary Tree
 The problem with the aforementioned approach is that when searching for a specific index, one would need to traverse through the rows one by one, making the search operation is $O(n)$ in time.
-<!--
-# Data Structures
-Lets imagine we want to store some user data, for which we will want to note down the user id (primary key) and their full name.
 
-|id | name |
-|--|--|
-| 12 | Paul Atreides |
-| 27 | Gurney Halleck |
-| 35 | Duncan Idaho |
-| ... | ... |
+To improve this a binary tree can be used. Consider the table below:
 
-## Option1: Delimeters (e.g. CSV)
-
-If we were to save data as a csv we would save it as
-
-```
-12, Paul Atreides\n
-27, Gurney Halleck\n
-35, Duncan Idaho\n
-```
-
-The problem is that when we read a csv file we simply get a long list of characters. The only way to distinguish different rows is by having an escape character `\n`.
-
-If we want to look at a specific row we would need to start at the beginning of the csv file and look for ideces by looking for the escape character `\n` character by character.
-
-## Option2: Fixed Row Length
-One solution is to make each row the same length. For example if each row has a length `m`, then we know that we can go to the 6th index by going to the `6*m`th character.
-
-In this solution one would need to track the length of each cell. If we allow the maximum entry length to be 255 ASCII characters long, then the length of each string will be somewhere between 0 and 255, which can be represented by a single byte.
-
-```
-0000 0000 = 0
-0000 0001 = 1
-0000 0010 = 2
-...
-1111 1111 = 255
-```
-
-This is the reason why `VARCHAR(255)` is often chosen in SQL databases. If one were to use `VARCHAR(256)`, the length of each entry would need to be represented by two bytes.
-
-```
-0000 0000 0000 0000 = 0
-0000 0000 0000 0001 = 1
-0000 0000 0000 0010 = 2
-...
-0000 0000 1111 1111 = 255
-0000 0001 1111 1111 = 256
-```
-
-The index must also be tracked, this is often chosen as 4 bytes (`0` to `4,294,967,295`)to make sure we can keep track of lots of rows of data.
-
-This would mean each row contains 260 bytes of data: 4 bytes (idx) + 1 byte (entry length) + 255 bytes (capacity). In order to go from row index 1 to row index 2 we would traverse the storage file by 260 bytes. -->
-
-<!-- ## Option3 Binary Tree
-The problem with the aforementioned approach is that when searching for a specific index, one would need to traverse through the rows one by one, making the search operation is $O(n)$ in time.
-
-To improve this a binary tree can be used. Consider the data below:
-
-| database_index | primary_key | name           |
+| database_index | person_id | full_name           |
 | -------------- |-------------|----------------|
 | RowID_0              | 12 | Paul Atreides |
 | RowID_1              | 27 | Gurney Halleck |
@@ -125,16 +76,25 @@ To improve this a binary tree can be used. Consider the data below:
 | RowID_6              | 74           | Princess Irulan           |
 | RowID_7              | 66           | Liet-Kynes      |
 
-A balanced binary tree can be created based on the primary_key (as this would be what the search criteria provided by the user would be based on; i.e. the input). Each node would contain the primary key, which is mapped to the database row index.
+Only the `person_id` and `full_name` columns are part of the actual table. The `database_index` column contains the row ID for each row in the table. This can be seen as the "address" of the row in the database, and is stored in the metadata catalog (which is often loaded into memory for performance). If the database knows which row ID you are interested in, it can almost immediately give you the data of said row.
 
-![balanced binary tree](media/balanced_binary_tree.png)
+Imagine we are looking for the person whose `person_id` is number 41. The database does not know which row ID this is associated with, instead it will have to perform a full sequential scan of the entire table, loading multiple pages in and out of memory in order to do so.
 
-For example if we wanted to find the name of the row with primary key 8 (notice how primary key does not have to be consecutively ordered), one would start at the top and compare 8 to the node value of 5. As 8 is bigger than 5 we would traverse down and to the right. The next node has a value of 7, once again 8 is bigger, and finally we would reach the leaf node containing a node of value 8. From this node we can see that primary key 8 refers to the 5th row in the database, which has a name value of "*Obi-Wan Kenobi*".
+```sql
+select full_name from persons where person_id = 41
+```
 
+A balanced binary tree can be created based on the person_id (as this would be what the search criteria provided by the user would be based on; i.e. the input). Each node in the binary tree contains the primary key, which is mapped to the database row index.
 
-## Option4 B Trees
+![datafile]({{ site.baseurl }}/assets/images/2025-08-16-sql-data-structures-&-the-anatomy-of-an-index/database-binary-tree.png)
+
+In this case one would start at the root node and compare the value of the node (56) to that of the query (41), as it is smaller we traverse the binary tree to the left. This brings us to a node with value 35, in this case the query (41) is bigger than the node, so we traverse the binary tree to the right. This brings us to the node whose value matches the query, and we know to retrieve data from the row RowID_3. The database knows exactly what data this refers to as it keeps the relationship between the RowID values and the actual row locations in memory, making it very quick to retrieve said data.
+
+## B-Trees
 The problem with a binary tree is twofold. First, the binary tree approach would only work if the tree was balanced; i.e. all the child nodes to the left of a node are smaller in value, and all the child nodes to the right of a node are larger in value. By default when dynamically building up a binary tree, it will not be balanced.
 
 Second, one would want to search through the data in memory (RAM) instead of from disk (HDD/SDD), as this is faster. However if we need to keep an entire binary tree with as many nodes as there are rows in the database in memory, we would need a *lot* of RAM, or we would need to load chunks of the tree into memory.
 
-A B-Tree datastructure can be used to solve this problem. They are similar to balanced binary trees, the main difference is that each node can contain multiple values, and can have more than 2 children. -->
+A B-Tree datastructure can be used to solve this problem. They are similar to balanced binary trees, the main difference is that each node can contain multiple values, and can have more than 2 children.
+
+## B+ Trees
