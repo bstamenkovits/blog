@@ -2,24 +2,27 @@
 layout: default
 title: Blog
 ---
-<h1>Posts Archive</h1>
+<div class="archive-container">
+  <h1>Posts Archive</h1>
 
-<div class="archive-timeline">
-  {% for post in site.posts %}
-    <div class="archive-timeline-row">
-      <div class="archive-timeline-date">
-        {{ post.date | date: "%Y-%m-%d" }}
+  <div class="archive-timeline">
+    {% for post in site.posts %}
+      <div class="archive-timeline-row">
+        <div class="archive-timeline-date">
+          {{ post.date | date: "%Y-%m-%d" }}
+        </div>
+        <div class="archive-timeline-circle-container">
+          <div class="archive-timeline-line"></div>
+          <div class="archive-timeline-circle"></div>
+        </div>
+        <div class="archive-timeline-content">
+          <h2>
+            <a href="{{ site.baseurl }}/{{ post.url }}">{{ post.title }}</a>
+          </h2>
+          {{ post.excerpt }}
+        </div>
       </div>
-      <div class="archive-timeline-circle-container">
-        <div class="archive-timeline-line"></div>
-        <div class="archive-timeline-circle"></div>
-      </div>
-      <div class="archive-timeline-content">
-        <h2>
-          <a href="{{ site.baseurl }}/{{ post.url }}">{{ post.title }}</a>
-        </h2>
-        {{ post.excerpt }}
-      </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
+
 </div>

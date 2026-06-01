@@ -1,6 +1,18 @@
 
 // Timeline styles
 
+.archive-container {
+//   background-color: var(--background-color);
+  width: 100%;
+  max-width: 860px;
+
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 2px; //soften corners ever so slightly
+}
+
 .archive-timeline {
     display: flex;
     flex-direction: column;
@@ -60,7 +72,7 @@
 .archive-timeline-circle {
     width: 16px;
     height: 16px;
-    background: var(--background-color, #fff);
+    background: var(--background-color-body, #fff);
     border: 4px solid var(--primary-color, #007acc);
     border-radius: 50%;
     position: absolute;
@@ -69,7 +81,7 @@
     transform: translate(-50%, 0);
     z-index: 2;
     margin: 0 auto;
-    box-shadow: 0 0 0 2px var(--background-color, #fff);
+    box-shadow: 0 0 0 2px var(--background-color-body, #fff);
 }
 
 .archive-timeline-content {
