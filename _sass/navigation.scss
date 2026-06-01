@@ -1,7 +1,7 @@
 
 .nav-container{
   display: flex;
-  position: fixed;
+  // position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -9,6 +9,12 @@
   // background-color: #F9F4EC;
   z-index: 1000;
   align-items: center;
+}
+
+@media (max-width: 960px) {
+  .nav-container {
+    background-color: var(--background-color);
+  }
 }
 
 .nav-left{
