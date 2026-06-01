@@ -1,6 +1,6 @@
 
 .post-container {
-  // background-color: var(--background-color);
+  background-color: var(--background-color);
   font-size: var(--font-size);
   font-weight: var(--font-weight);
   color: var(--text-color);
@@ -9,6 +9,8 @@
   padding: var(--post-padding);
 
   margin-inline: auto;
+  border-radius: 6px; //soften corners ever so slightly
+
 }
 
 .post-container > p > img {

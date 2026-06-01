@@ -17,9 +17,12 @@ body {
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 
 .main-container {
-  background-color: var(--background-color);
   width: 100%;
   max-width: 860px;
 
@@ -27,7 +30,7 @@ body {
   margin-left: auto;
   margin-right: auto;
 
-  border-radius: 2px; //soften corners ever so slightly
+  // border-radius: 4px; //soften corners ever so slightly
 }
 
 @media (max-width: 960px) {
@@ -37,7 +40,7 @@ body {
     width: 100%;
     max-width: none;
     height: auto;
-
+    overflow: hidden;
   }
 }
 

@@ -2,13 +2,12 @@
 layout: default
 ---
 
-
-
 <!-- <div style="text-align: center;">
     <img src="{{ site.baseurl }}/assets/images/{{page.image}}" alt="Alt text">
 </div> -->
 <div class="main-container">
     <div class="post-container">
+        <span><a href="{{ site.baseurl }}/?scrollto=post-archive-section">Post Archive</a></span>
         <h1 class="post-title">{{ page.title }}</h1>
         <p class="post-date">{{ page.date | date_to_string }}</p>
         {{ content }}

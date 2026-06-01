@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
   </head>
   <body>
-    {% include navigation.html %}
-    {{ content }}
+    <div class="main-container">
+      {{ content }}
+    </div>
+
   </body>
 </html>
 
@@ -21,3 +23,14 @@
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const target = document.getElementById(params.get('scrollto'));
+  if (target) {
+    setTimeout(() => {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
+  }
+});
+</script>
