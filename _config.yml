@@ -1,3 +1,10 @@
 title: "Jekyll Actions Demo"
 highlighter: rouge
 baseurl: "/blog" # Add this line
+
+exclude:
+  - drafts
+  - notes
+  - scripts
+  - temp
+  - resources

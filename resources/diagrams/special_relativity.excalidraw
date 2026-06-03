@@ -6,8 +6,8 @@
     {
       "id": "PIc7PuMgxoavqvk-TKRsP",
       "type": "rectangle",
-      "x": -44.97715514612702,
-      "y": 91.7187000621003,
+      "x": -45.139735834922874,
+      "y": 91.55611937330447,
       "width": 1028.149535219831,
       "height": 504.7164617829897,
       "angle": 0,
@@ -25,11 +25,11 @@
         "type": 3
       },
       "seed": 245916217,
-      "version": 306,
-      "versionNonce": 1486054103,
+      "version": 307,
+      "versionNonce": 1365899417,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1780323305374,
+      "updated": 1780413613161,
       "link": null,
       "locked": false
     },

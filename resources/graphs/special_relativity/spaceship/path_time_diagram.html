@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>SVG Slider</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        svg {
+            display: block;
+            margin: 20px 0;
+        }
+
+        input {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>SVG Slider</h1>
+
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" width="720" height="520">
+        <!-- svg-source:excalidraw -->
+        <metadata></metadata>
+        <defs>
+            <symbol id="image-88b5a33e21a70df840156fea34bd0c375524e6e1">
+                <image
+                    href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBmaWxsPSIjMDAwMDAwIiB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHZpZXdCb3g9IjAgMCAxOTEuNyAxOTEuNjk5IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTkxLjciIGhlaWdodD0iMTkxLjY5OSI+PGcgaWQ9IlNWR1JlcG9fYmdDYXJyaWVyIiBzdHJva2Utd2lkdGg9IjAiLz48ZyBpZD0iU1ZHUmVwb190cmFjZXJDYXJyaWVyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48ZyBpZD0iU1ZHUmVwb19pY29uQ2FycmllciI+IDxnPiA8Zz4gPHBhdGggZD0iTTE0NC40ODksODYuNDhjLTQuOTg0LTQ0LjM1OS0xOC4zMTUtOTAuNzA2LTQ3LjA5Mi04Ni4xNzNDNjUuMjIxLDUuMzc3LDUyLjQxNSw0Mi43NzEsNDcuMzQyLDcwLjI4NiBjLTEuMTY2LDYuMzI0LTEuODkzLDEyLjczLTIuNDUzLDE5LjE1NmMtMzIuOTQ4LTQuMDkyLTMzLjY4NCw0NC4zMjQtMzMuNzAzLDY2LjQ2NWMtMC4wMDIsMS44NzUsMS4yMzgsMy4yMjksMi45MjEsMy44MzYgYzkuNzcxLDMuNTI0LDIyLjA1Niw1LjA0LDMyLjI3NywxLjc5MmMwLjEzMywwLjIyOCwwLjIwOSwwLjUxNiwwLjM1MSwwLjczM2MwLjg0NywxLjMwMSwyLjY4MSwxLjMzMSwzLjUyMiwwIGMwLjI1My0wLjM5OSwwLjQ1Mi0wLjg2MiwwLjY3Ni0xLjI5NmMxLjE0OCwwLjk4NCwyLjQ0MiwxLjc5NSwzLjcyMiwyLjYyMmMtMC45MjYtMC4yNzQtMi4xOTMsMC4xMjgtMi42MDcsMS4xNTQgYy0yLjEwOCw1LjIyOC0zLjgxNCwxMC44ODctNy4zNjksMTUuMzQxYy0xLjU1NywxLjk1Mi0xLjI0OCw1LjE3OCwxLjU0OSw1Ljg2OGMxMi4wNzYsMi45NzksMjQuNjQzLDEuNzQ0LDM2LjkxOCwzLjA3OCBjMC40NzIsMC41MzYsMS4wNTMsMC45NjMsMS43MDcsMS4wNjVjOC43MjEsMS4zODUsMTcuNDk0LDEuNTQ4LDI2LjMwNiwxLjU5OGMxLjc2LDAuMDEsMy4xODYtMS4yNjUsMy42MDctMi44OTkgYzguNTY0LDAuNjU4LDE3LjI1LTAuMTUyLDI1LjcyNy0xLjI3NmMyLjMwOS0wLjMwNiw0LjE0LTIuMDc1LDMuNDg3LTQuNTc4Yy0xLjIzNy00Ljc0OS0yLjgzNS05Ljg5MS01LjQzNC0xNC4yMzIgYzIuNjA4LTEuNjM1LDQuNDUtMy43ODgsNS4wNjUtNi42MTNjMC4xMDYtMC40OTIsMC4wODQtMC45NDQsMC4wMDgtMS4zNzZjMC4wNzYtMC4wNCwwLjEyOS0wLjEyMiwwLjIwMS0wLjE2OCBjMTMuODY5LDYuNTc4LDI0Ljg4OSwyLjYzMSwzMS4xMDctNi43NjZjMC41NTktMC4zMzIsMC45MTMtMC45MDMsMC45OTQtMS41NDRjMi43Ni00Ljg0LDQuMzYxLTEwLjkwMiw0LjU2NC0xNy42MjYgQzE4MS4xODUsMTExLjQxNywxNjcuODUsODcuNjkzLDE0NC40ODksODYuNDh6IE0yMi42MTUsMTE2LjEwMmMzLjczNywwLjA4OSw3LjQ3NSwwLjE3OSwxMS4yMTMsMC4yNyBjMy4xNzgsMC4wNzgsNi42NzMsMC42NDUsOS44NiwwLjEzNmMtMC4wMTcsMS42MjMtMC4wNjcsMy4yNTEtMC4wNzEsNC44NjljLTIuMTM0LTAuMjAzLTQuNTE5LDAuMDA5LTYuMTE5LTAuMDUyIGMtNC42OTQtMC4xODEtOS42NTEtMC43MjktMTQuMzMzLTAuMjI4Yy0xLjkxMSwwLjIwNS0xLjg4OSwyLjcyNywwLDIuOTU0YzYuNTk4LDAuNzk0LDEzLjksMC45MzksMjAuMzU0LDEuNDExIGMtMC4wNjUsMS42ODUtMC4xNDksMy40NTMtMC4yNDgsNS4zMjdjLTcuNzYtMC4zODUtMTUuNjAxLTAuMjAyLTIzLjM1LTAuMTM0QzIwLjQyMiwxMjUuNjU1LDIxLjI2MiwxMjAuNjkzLDIyLjYxNSwxMTYuMTAyeiBNMTkuNjU3LDEzMy42ODNjMy4wMDQsMC41ODYsNi4xNzMsMC42NjQsOS4xNzMsMC44ODljNC42NSwwLjM0OCw5LjQ4OCwwLjk5MSwxNC4yMTMsMS4wMjhjLTAuMDQ3LDEuMTAxLTAuMDk2LDIuMTk5LTAuMTI0LDMuMzE1IGMtMi45MjEtMC4yMDctNi4xNTMsMC4yNjctOC43NjksMC4yNzFjLTQuOTQyLDAuMDExLTkuODcxLTAuMTktMTQuNzk5LTAuNDgyQzE5LjQyMiwxMzcuMDQ1LDE5LjUzLDEzNS4zNjYsMTkuNjU3LDEzMy42ODN6IE0xOS4yMzIsMTQxLjk5OGM0LjM2MSwwLjU2MSw4Ljc2NSwwLjc5NSwxMy4xNTcsMS4wMTZjMy4wMDYsMC4xNTIsNy4wMTQsMC44NzgsMTAuNDg0LDAuNjExYzAuMDE0LDEuMTIyLDAuMDQ3LDIuMjM4LDAuMTAzLDMuMzQgYy01LjIzNC0wLjMyLTEwLjUyOC0wLjIyLTE1Ljc3Mi0wLjQxN2MtMS44ODYtMC4wNzEtNS4zMzgtMC43NzUtOC4wNDUtMC40ODNDMTkuMTcyLDE0NC43MzUsMTkuMTk2LDE0My4zNzYsMTkuMjMyLDE0MS45OTh6IE0xOS4xMzgsMTUyLjk1MWMtMC4wMDItMC45MzItMC4wMDItMS45MTUtMC4wMDItMi44OTVjMi4zMzksMC40NDIsNS4yMzQsMC4yMzYsNi44MzYsMC4zNjcgYzUuNjM4LDAuNDYxLDExLjUzMiwxLjM2NCwxNy4xOTIsMS4wODRjMC4wODQtMC4wMDQsMC4xNC0wLjA0MiwwLjIxOS0wLjA1MmMwLjExNywwLjkwOSwwLjIyNCwxLjgyOCwwLjM5MiwyLjY5NCBDMzUuMzI5LDE1NC42MiwyNy41MTUsMTU1LjI3NywxOS4xMzgsMTUyLjk1MXogTTQzLjc0NCwxMTIuNjUxYy0zLjIwMi0wLjUyNi02LjcyLDAuMDQ5LTkuOTE2LDAuMTI3IGMtMy40MDEsMC4wODMtNi44MDEsMC4xNjQtMTAuMjAyLDAuMjQ0YzAuOTg2LTIuNywyLjIxOC01LjE5NywzLjY4NS03LjQ2OWMyLjM3NCwwLjEwNCw0Ljc0OCwwLjE5OCw3LjExOSwwLjMzNiBjMy4xLDAuMTgyLDYuMzI4LDEuMDI2LDkuNDYzLDEuMDg4QzQzLjg0LDEwOC44NjksNDMuNzc5LDExMC43NjEsNDMuNzQ0LDExMi42NTF6IE00NC4wMiwxMDIuODQzIGMtMi4xNS0wLjQ4MS00LjM5NS0wLjQ1MS02LjY1OS0wLjU2MmMtMi41MDEtMC4xMjMtNS4wMDQtMC4xMTUtNy41MDYtMC4wNjJjMy41NTctNC4wMDksOC4yNTktNi44MzYsMTQuNTkxLTcuNzA5IEM0NC4yNTgsOTcuMjg2LDQ0LjEyOCwxMDAuMDY0LDQ0LjAyLDEwMi44NDN6IE0xMDQuNzg2LDEwLjI4N2MtNC41NTktMC41MjEtOS40MTYtMC4zMTYtMTMuOTgzLTAuMDYxIEM5Ni4wMjYsNy45MDgsMTAwLjY2OCw4LjE5MiwxMDQuNzg2LDEwLjI4N3ogTTgwLjM3MywxNy43MzVjMS44MDgtMS43NzMsMy41NTktMy4yNjEsNS4yNTYtNC40OWMwLjA4LDAuMDE1LDAuMTExLDAuMDg3LDAuMiwwLjA5IGM0LjIyMiwwLjE4MSw4LjQ0NiwwLjI2NiwxMi42NjYsMC40ODdjNC4wNDksMC4yMTIsOC4xMDUsMS4wNDEsMTIuMTU2LDAuOTNjMS4wMjksMS4wNjgsMi4wMjEsMi4yNDMsMi45NzEsMy41MjQgYy0xMC44OTUtMS42NDMtMjIuMjQxLTAuMDA0LTMzLjQzMy0wLjM0M0M4MC4yNTQsMTcuODcsODAuMzA4LDE3Ljc5OCw4MC4zNzMsMTcuNzM1eiBNMTE0LjI1OCwyMS40NzEgYzAuNTEtMC4wOSwwLjc5LTAuNDYsMC45NjQtMC44ODljMC40MjMsMC42NSwwLjg0NCwxLjMwNCwxLjI1LDEuOTljLTIuMjk3LDAuNzU1LTQuNTk3LDEuNDQ5LTYuODk3LDIuMTA3IGMtMTEuNDU5LTAuNzY2LTIzLjMtMC44MzYtMzQuODA0LTAuNjI3YzAuODkzLTEuMDk2LDEuODEzLTIuMTc1LDIuNzYzLTMuMjM0Qzg5LjM4NCwyMi44ODIsMTAyLjkwNywyMy40NzUsMTE0LjI1OCwyMS40NzF6IE03Mi45NTEsMjYuNDMzYzcuMTE5LDAuMjc4LDE0LjM1MywxLjA0NywyMS41NywxLjU4Yy03LjQxOSwxLjA2Ni0xNC45NCwxLjE5OC0yMi42NTgtMC4xMzkgQzcyLjIwNywyNy4zODIsNzIuNTkxLDI2LjkxNiw3Mi45NTEsMjYuNDMzeiBNNTIuMzYzLDEwNS41MDRjMC43OC0yNS4wNDgsMy44NjMtNTMuMjMsMTcuNjQ5LTc0Ljg3MiBjMTMuNjU5LDYuOTk1LDM2LjUsNy4wOTMsNDkuODU5LTEuNTE1YzcuMDIyLDE1LjIwNiwxMC45NTEsMzQuOTc0LDEyLjcxMSw0NS4yMDRjMy4yODUsMTkuMDcxLDUuMTkyLDM3LjMxNSw1LjIyOCw1Ni42MzggYzAuMDA2LDMuMzEtMC4xMjMsNi43My0wLjIyLDEwLjE2NmMtMTQuOTA5LDEuODc0LTI3Ljc1Niw0LjAzLTQzLjA5NSwyLjU4MmMtOS45NTgtMC45NC0xOS44ODEtMi43ODctMjkuNjg0LTQuNzM0IGMtMy42NC0wLjcyMy03LjA5Mi0xLjk5Ni0xMC41OTctMS44MTNDNTMuODI0LDEyNS42MDksNTIuMTE3LDExMy40MDIsNTIuMzYzLDEwNS41MDR6IE04MC4zMiwxODEuMjQxIGMtOS40MTYtMC43NS0xOC44MzYtMC42My0yOC4yMzUtMS42MzZjMS42OTEtNC42NSwyLjkzNi05LjQ0NiwzLjU5MS0xNC4zNjZjMC4wNjMtMC40NzMtMC4wNTUtMC44MjMtMC4yNDgtMS4xMDEgYzcuMjk3LDQuNDU0LDE2LjM4LDYuNjUxLDI1LjQ1OSw3LjgwM0M4MS40MzQsMTc1LjEsODEuMDY1LDE3OC4xODksODAuMzIsMTgxLjI0MXogTTg4LjkwMiwxODMuMjc2IGMtMC4yMTgtMC45OS0wLjQ0My0xLjk3NC0wLjY2Ny0yLjk1NGMwLjQyNy0yLjUxNiwwLjYxOC01LjA1NCwwLjM3Mi03LjU5M2M0LjM5NiwwLjMzNCw4LjY1NCwwLjUxMSwxMi41NDIsMC42NzkgYzEuNTMyLDAuMDY1LDMuNjY3LDAuMTYyLDYuMTE2LDAuMjIyYy0wLjEwNCwxLjYzNiwwLjA3NCwzLjM4MSwwLjA3Nyw0Ljc3NWMwLjAwNSwxLjkwNSwwLjAxMSwzLjgxMiwwLjAxNSw1LjcxNyBDMTAxLjE5NCwxODQuMTM5LDk1LjAxOSwxODQuMDIsODguOTAyLDE4My4yNzZ6IE0xMTQuOTY1LDE4NC4wMzljMC4wMDUtMS44NzgsMC4wMTEtMy43NTUsMC4wMTUtNS42MzMgYzAuMDAzLTEuMzk1LDAuMTgxLTMuMTQsMC4wNzctNC43NzVjNS41MDEtMC4xNTEsMTEuNTAzLTAuNjkzLDE2LjYwNS0yLjA4NGMxLjQzOCwzLjEzOCwyLjg4OSw2LjIwMiw0LjA3OCw5LjQyMSBDMTI4LjgxNCwxODEuOTc5LDEyMS44ODMsMTgyLjk3NywxMTQuOTY1LDE4NC4wMzl6IE05Ny4xNjMsMTY1LjI0M2MtMTMuNjI1LTAuNDczLTMyLjE0Ni0xLjI5Ny00NC41MDItOC42MjEgYzEuMTYyLTQuMTIzLDEuNTUyLTkuMDg4LDEuNTkxLTE0LjMyNmMxMC4wOTIsNi40NDksMzAuNDg1LDcuMzIsNDAuMjQ1LDguNDc4YzExLjgxMSwxLjQwMiwzMi4wODQsNC43Nyw0My4wNzMtMy4wMTIgYzAuMDU3LDMuNjc1LDAuMjYsNy4zMjMsMC45ODgsMTAuODE4QzEyNS4xOTgsMTY1LjA1LDExMi4wNjYsMTY1Ljc1OSw5Ny4xNjMsMTY1LjI0M3ogTTE3Mi42MDQsMTMwLjU3NCBjMC4wMDUsMC4wNTYsMC4wMDQsMC4xMjEsMC4wMSwwLjE3N2MtMi42MzMsMC4wNzctNS4zNTMsMC40NzgtNy41ODgsMC41MzljLTYuMDQzLDAuMTY2LTEyLjA4OCwwLjI2MS0xOC4xMDksMC43NjEgYzAuMDE2LTIuMTY3LTAuMDEyLTQuNDc4LTAuMDM5LTYuNzljNy44NTQsMS41MTIsMTcuMDMzLDIuNjUzLDI1LjI3MywyLjAxN0MxNzIuMzAxLDEyOC4zNzcsMTcyLjUwNiwxMjkuNDUzLDE3Mi42MDQsMTMwLjU3NHogTTE3MS41MDIsMTIzLjE1OGMtMy4wODEtMC4wNzUtNi4xODksMC4xNDItOS4yNjYsMC4xMzljLTUuMDQ3LTAuMDA1LTEwLjA1LTAuNDE1LTE1LjA3Ni0wLjc3OCBjLTAuMTMxLTAuMDEtMC4xOTcsMC4wODgtMC4zMTEsMC4xMTJjLTAuMDUzLTIuNzE0LTAuMTQ2LTUuNTMtMC4yNjQtOC4zOTNjMy45MzEsMC41Nyw3Ljg3MywxLjA3NywxMS44OTYsMS4zNjggYzIuNzc4LDAuMjAxLDcuNTA1LDEuMTMzLDEwLjk3OSwwLjM1N0MxNzAuMjc2LDExOC4yNzgsMTcwLjk5MywxMjAuNjU4LDE3MS41MDIsMTIzLjE1OHogTTE2Ni4xODIsMTA4LjczOCBjMC40OTEsMC44NjUsMC45NzcsMS43MzYsMS40MSwyLjY0OWMtNi45NjctMC4xMDQtMTQuMjQyLDAuMjY4LTIxLjA5NCwwLjk2MWMtMC4wNjktMS41MTctMC4xNzgtMy4wOTQtMC4yNjQtNC42NDEgYzMuMDEsMC4zMzMsNi4wNTcsMC42Myw5LjE1MywwLjcyOEMxNTguMjk4LDEwOC41MjgsMTYyLjg5MywxMDkuNDY0LDE2Ni4xODIsMTA4LjczOHogTTE0NS4xMzcsOTIuNzQ3IGMzLjk2NSwwLjg4Niw3LjQzNCwyLjQxNywxMC40NzcsNC40MzVjLTMuMjU0LTAuMjU4LTYuNTIxLTAuNTcyLTkuNzg3LTAuNTU5Yy0wLjE0NywwLjAwMS0wLjI1NiwwLjA1My0wLjM4NywwLjA3OSBDMTQ1LjM0Nyw5NS4zOTMsMTQ1LjI2Niw5NC4wOTQsMTQ1LjEzNyw5Mi43NDd6IE0xNDUuODI3LDEwMC41MjdjMy4wNjUsMC4wOTEsNi4xMjEsMC40ODIsOS4xNjYsMC44MjIgYzEuNzgsMC4xOTksNC4yMjksMC44NDksNi4zNjMsMC44NzhjMC41OCwwLjYzNywxLjIxLDEuMjIxLDEuNzQzLDEuOTAyYy0yLjcwNywwLjAyNC01LjYzOCwwLjUxOC03LjcxMSwwLjU4NCBjLTMuMTQsMC4xLTYuMjI5LDAuNDAyLTkuMjgsMC43NDJjLTAuMS0xLjYyMS0wLjI0NC0zLjI5My0wLjM3OC00Ljk1MkMxNDUuNzY2LDEwMC41MDcsMTQ1Ljc5LDEwMC41MjUsMTQ1LjgyNywxMDAuNTI3eiBNMTY2LjExNCwxNTMuNjMxYy01LjYzMyw0LjI1NC0xMy44MTgsMS4zMzUtMjAuMzEyLDAuNDZjMC4xMTYtMC45MzYsMC4yMDktMi4wNTksMC4zMS0zLjEyMiBjNi43MDcsMC42MDQsMTMuNDQzLDEuNzcxLDIwLjE1MSwyLjUyMUMxNjYuMjA4LDE1My41MzEsMTY2LjE3LDE1My41ODgsMTY2LjExNCwxNTMuNjMxeiBNMTcwLjA4MSwxNDguODg3IGMtNy42MjUtMS40OTgtMTYuMDk3LTEuNjM3LTIzLjY4Ny0xLjI3NGMwLjEyNi0xLjc3NSwwLjIyOC0zLjY5NywwLjMxMi01LjcxM2M4LjA1NiwxLjM1LDE3LjE0NSwyLjM5NCwyNS4yMjEsMS43MjMgQzE3MS40OTksMTQ1LjQ3NSwxNzAuOTQyLDE0Ny4yNzEsMTcwLjA4MSwxNDguODg3eiBNMTcyLjY0NSwxMzkuMDE0Yy00LjA2MS0wLjI0MS04LjE4NCwwLjE3MS0xMi4yNTUsMC4xOTIgYy00LjUzOCwwLjAyMy05LjA2LTAuMjI2LTEzLjU4NC0wLjQ2NmMwLjA0Mi0xLjQwOSwwLjA2OS0yLjg3OCwwLjA5MS00LjM3NGM1LjM2MSwwLjQ0MSwxMC43MzQsMC42MjMsMTYuMTE3LDAuNzcgYzIuNzgxLDAuMDc2LDYuMzg2LDAuNjY2LDkuNzQ0LDAuNjg1QzE3Mi43NDUsMTM2Ljg3OSwxNzIuNzM0LDEzNy45MzksMTcyLjY0NSwxMzkuMDE0eiIvPiA8cGF0aCBkPSJNMTIwLjg2LDY4LjA1MmMtMy4wMzMtMTIuNjA2LTE1LjU0MS0yMS43NzItMjguMzQzLTIxLjA0MmMtMTQuNTY4LDAuODMxLTI4LjcyMiwxNC42MzUtMjUuOTM0LDI5LjcyMiBjMi44MzksMTUuMzY2LDE3LjA2MSwyNC4wNjIsMzEuOTE3LDIxLjMyYzAuNzk3LDAuNTE3LDEuODMsMC42OTgsMy4wMzcsMC4zMDRDMTE1LjI5NSw5My44NjMsMTI0LjQ0MSw4Mi45MzMsMTIwLjg2LDY4LjA1MnogTTkzLjk4Niw1NC41OThjNC4xNjItMC4yMzEsOC4wMTgsMS4yNjQsMTEuMjQyLDMuNjk4Yy0yLjMzOC0wLjQyLTQuNzUxLTAuNTg2LTcuMDY3LTAuNzk5IGMtNC4wMjMtMC4zNzEtOC4wNjMtMC42MDEtMTIuMTAyLTAuODM5Qzg4LjY0NSw1NS41LDkxLjM2NSw1NC43NDMsOTMuOTg2LDU0LjU5OHogTTk5LjQ1NCw5MC43OTUgYy0xLjU5LDAuNTE0LTIuMzY3LDEuNzA0LTIuNTk4LDIuOTkxYy03LjM0LTAuNDI4LTE0LjExOC0zLjY0Ni0xOC41MDItOS4xMzhjMi43MDQsMC4yNTUsNS43MjEsMC4xMjgsNy4wNzIsMC4yNiBjNi41MDQsMC42MzMsMTQuNDU3LDMuMiwyMC44ODksMi4wOTljMS41Ny0wLjI2OSwxLjc2Ni0yLjY0NSwwLjQzOC0zLjM0MmMtNi4xMjUtMy4yMS0xNi4yMTEtMi4wNTUtMjIuOTY5LTIuMzI5IGMtMC4zOTQtMC4wMTYtNC42NDktMC4yOTktNy42MTEtMC4wMDRjLTAuODQxLTEuNTctMS41NzMtMy4yMjctMi4wNC01LjA2N2MtMC4xNC0wLjU1My0wLjIxNS0xLjA5Ni0wLjI4OC0xLjYzOSBjNC40ODYsMS4xNDEsMTAuMTAzLDEuMDA3LDEzLjgxMiwxLjM3OGM2LjI1OSwwLjYyNCwxNy4yNjgsMy40OTksMjMuMTM5LDAuMjI4YzIuMDUzLTEuMTQ0LDAuNTMxLTMuNzg4LTEuNDc3LTMuNTAzIGMtNi4zMSwwLjg5NC0xMy42NDMtMC4xMjEtMTkuOTkxLTAuNDA1Yy00LjI0NS0wLjE5LTEwLjYzLDAuMzcxLTE1LjYxLTAuMzc0YzAuMzM4LTUuNTYxLDQuMDg3LTEwLjI5OCw4LjkyOC0xMy40MzIgYzMuODIyLDAuNjI5LDcuNjc1LDEuMDgsMTEuNTE2LDEuNTY2YzUuMTExLDAuNjQ2LDEwLjI5MywyLjM5MiwxNS40MTMsMi41NzhjMC44NTksMS4xMywxLjY0OCwyLjMwOSwyLjI4NSwzLjU1NiBjLTQuMDc4LTIuNTE0LTEyLjE1Ni0xLjM2OS0xNi41MzMtMS41NjJjLTYuMDk5LTAuMjY5LTEzLjczNi0xLjU2OS0xOS4yNjYsMS4xNzdjLTAuOTE2LDAuNDU1LTAuMjQ4LDEuNzY3LDAuNjY0LDEuNTc1IGMwLjk1NS0wLjIwMiwzLjYxOCwwLjQ5Niw0Ljc5MSwwLjU2MmM0LjExLDAuMjMsOC4yMTEsMC41ODQsMTIuMzEzLDAuOTI1YzQuMTA3LDAuMzQxLDguMjEsMC43MzcsMTIuMzEzLDEuMTIzIGMxLjk0OSwwLjE4NCw0LjI0OSwwLjc2LDUuOTctMC40ODNjMC4zMzgtMC4yNDQsMC41ODYtMC42MywwLjc1NC0xLjA0MmMwLjA0MywwLjExNCwwLjEwNywwLjIyMiwwLjE0NywwLjMzNiBDMTE2LjkxNyw3OS42NTgsMTA5LjI0NSw4Ny42MjksOTkuNDU0LDkwLjc5NXoiLz4gPHBhdGggZD0iTTk0LjY1NiwxMDcuNTc0Yy0xLjgxLTAuMzU1LTMuMDkxLDAuNjY0LTMuNjAxLDEuOTYzYy00LjQzNSwwLjUzLTcuOTgxLDMuNzYtOS4yMjMsOC40MjQgYy0xLjgyMyw2Ljg0NywzLjMwOSwxMi4xMDksOS44MiwxMi45NThjNi41NzEsMC44NTcsMTMuNTc0LTIuMzU2LDE0LjEzMS05LjYzN0MxMDYuMjk1LDExNC41ODIsMTAxLjAzNiwxMDguODI3LDk0LjY1NiwxMDcuNTc0eiBNOTIuNDk1LDEyNC43ODZjLTcuNDIyLTAuNTI1LTUuMzI4LTguNzU2LTAuODMtMTIuMDE1YzAuMzQzLDAuMzM1LDAuNzYxLDAuNjI3LDEuMzM1LDAuODA1YzMuMTkxLDAuOTgxLDYuMjc4LDIuOTY4LDYuNSw2LjYxOSBDOTkuNzQ5LDEyNC4yMTgsOTUuNjU2LDEyNS4wMSw5Mi40OTUsMTI0Ljc4NnoiLz4gPC9nPiA8L2c+IDwvZz48L3N2Zz4="
+                    preserveAspectRatio="none" width="100%" height="100%"></image>
+            </symbol>
+            <style class="style-fonts">
+                @font-face {
+                    font-family: Excalifont;
+                    src: url(data:font/woff2;base64,d09GMgABAAAAAATQAA4AAAAACHQAAAR8AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbgQYcNAZgAFQRCAqHHIVCCw4AATYCJAMYBCAFgxgHIBuXBlGUME4G2RcFtnuKIgwKIW6sIw5P5Ie37spcWYb6fNzDkrAhuIqHh3t/5943alO8Jo1la1vZHsKJBhpZGBd42H8+sZ97m7d1UUPM6xexULASSYFbyLTIEJuLuZm8fYBViBGZ6DdhxVfGtq+I/CdUaUCRwPU/fzn+djw23xa7rTDfXcun5l9ri5VYGthYtui4oXlAlwUM2Zab/n8Kzul4RKgkRMSpIcIFuuElUihUQqDTjB3RrZ2rJ6RvA1NG+tFkJKTfCFtFWhT+jb7Xe1NFEiMopT60S4M4C5rC20y/PDSJi7wqhULzojisDxczZ2yX74IWyPYyY2KJSnuS+QYOuUxcGPuHYLhx6/j0BmsM8ou61reqqIu6QfiAeM/ZNCiJRIG+noA/jVoD3dql0qBtNpffgPlo8+Okxc2iZqFoITVksyanHCpiGeIIQMkbASnmdLpYsn9yPMmsU5leT/gSQzfsCV9fGt+rBKgVJ/T1mVO7pBi+vmv2Cjs/qVUc1c5xGCbgIQG8FzIC1mTuMmK2TakKdcc1xtAVgNyBMswYykxjzrv9Mc5627XKtADBV59ebWu7U20NWLGDD0gb0DExinSY0isJFoA9v2UcZ2ll5RmwYc2FAGpHLMmg646ZCTXGvKZU749bT7AHlQWxyqOjaxEaYw+zm9n148d6ze3GLE7D9FqIGuDHUGuEBBR1PknGUvqbVDmsMxvM3lBlxtahx1Q4rDELD9E0YkgLRgPGTnsEu55dDZJg6b8dZJQCa/T4MRQSS+P0ShoZBR16zIpV6CohypBSK9YcANQVsCKiUOzLVFoRP/20hlMvrQecrT2cIzVUue+Ht1lukcvgVDQjco/SvITXyscFdwgRHp93WQxDcxW4OMpdZBMLAYeryfi1XTjcrA8C4ryP3ZRU35p156G3o2LCgiMO+XsK0BVmBLciD7e8vdXz6sr10DJ/nMhtxVL9ZB2kwjer/GdsLL7cbffs8a0vbPHn1YJNR67ei/TIaLYPjajUaoPui8sf33vWIVU5YnM9pt4JxdGG9CK+Ycz1Vi7u798z9eXJ35TiZyZVhMn859FiI1u1eEdCZMUfOng2+MT4pg7b3/NcJZ+j7W3hKSYOBWzPho8V8wqDu8LzvByoxE9M3MPlpmh9nASvcrncwHqX6EwP7kxNlJejN820IgI5+SgtXwU7DlfEyGdlXrKrhy+CBjjIN2pl8a1/d1V+rSO7qMWJXq/lpETQk6R3rNIdc00AgWDla7/LlMtfO8x9CT9BWwC/P292qzn6ulyBdgmC79aoFBzi/+8cAcXWRZbjWEKOK2RLKKWhngyXEqh9owaJEJk12NXmRESUkhBv/lQOfX7l1OtTLkx7l0ujSLmyonqP2ijY5qMQZAKWRmXrecDgOGQE0wuGySJ4eNFI31BO23RKFtDxLEUTfWNCc6Px4oVWukVxMm31I49O3dgMTc7ZLhxyjS5gEnB4ti7fpbQUjQ2NTRWRAsVomTQTwdNXtE8mK8ZzywBDxIA7MVpfBOSmpTIBAAA=);
+                }
+            </style>
+        </defs>
+        <rect x="0" y="0" width="720" height="520" fill="#ffffff"></rect>
+        <g stroke-linecap="round" transform="translate(10 10) rotate(0 350 250)">
+            <path
+                d="M32 0 C249.22 1.93, 467.69 1.6, 668 0 M32 0 C205.67 -1.79, 379 -1.69, 668 0 M668 0 C690.05 -0.82, 700.57 11.22, 700 32 M668 0 C691.44 -0.29, 698.25 10.65, 700 32 M700 32 C700.53 154.65, 700.98 277.27, 700 468 M700 32 C699.76 158.08, 700.17 284.29, 700 468 M700 468 C701.58 488.86, 690.19 500.15, 668 500 M700 468 C698.17 488.19, 689.51 500.66, 668 500 M668 500 C470.06 497.06, 271.43 497.05, 32 500 M668 500 C500.73 497.89, 333.71 497.83, 32 500 M32 500 C11.06 500.52, -1.99 488.86, 0 468 M32 500 C9.31 501.75, -1.83 491.11, 0 468 M0 468 C-1.34 344.81, -0.7 221.57, 0 32 M0 468 C0.97 330.07, 0.04 192.27, 0 32 M0 32 C-0.45 10.31, 8.69 -1.96, 32 0 M0 32 C1.43 11.75, 8.55 1.48, 32 0"
+                stroke="transparent" stroke-width="2" fill="none"></path>
+        </g>
+        <g stroke-linecap="round" transform="translate(150 95) rotate(0 190.9898102586758 184.3284406325219)">
+            <path
+                d="M32 0 C122.5 -0.34, 210.97 -0.43, 349.98 0 M32 0 C126.07 0.37, 220.41 0.55, 349.98 0 M349.98 0 C369.71 -0.1, 380.14 10.06, 381.98 32 M349.98 0 C371.6 0.77, 380.95 10.91, 381.98 32 M381.98 32 C382.48 128.58, 381.38 226.89, 381.98 336.66 M381.98 32 C381.04 130.14, 381.35 228.77, 381.98 336.66 M381.98 336.66 C380.74 359.26, 372.91 370.28, 349.98 368.66 M381.98 336.66 C380.26 357.05, 369.73 368.61, 349.98 368.66 M349.98 368.66 C233.28 368.58, 117.59 366.79, 32 368.66 M349.98 368.66 C254.97 369.51, 158.9 369.56, 32 368.66 M32 368.66 C11.52 369.78, -0.47 359.56, 0 336.66 M32 368.66 C10.33 369.12, 0.96 358.57, 0 336.66 M0 336.66 C-1.18 218.9, -0.06 101.42, 0 32 M0 336.66 C1.99 248.79, 1.53 161.17, 0 32 M0 32 C1.77 9.59, 12.56 -1.65, 32 0 M0 32 C1.29 12.46, 9.44 1.86, 32 0"
+                stroke="transparent" stroke-width="2" fill="none"></path>
+        </g>
+        <g stroke-linecap="round">
+            <g transform="translate(210 270) rotate(0 50 0)">
+                <path id="dashed-line-t" d="M-0.49 -1 C16.1 -1.07, 82.73 -0.13, 99.44 -0.03" stroke="#d0bfff"
+                    stroke-width="1.5" fill="none" stroke-dasharray="8 9"></path>
+            </g>
+        </g>
+        <mask></mask>
+        <g stroke-linecap="round">
+            <g transform="translate(310 270) rotate(0 0 70)">
+                <path id="dashed-line-x" d="M-0.56 -0.03 C-0.53 23.4, -0.25 116.36, -0.27 139.59" stroke="#d0bfff"
+                    stroke-width="1.5" fill="none" stroke-dasharray="8 9"></path>
+            </g>
+        </g>
+        <mask></mask>
+        <g stroke-linecap="round">
+            <g
+                transform="translate(210.26993456818164 403.68809679395355) rotate(0 99.86503271590918 -136.84404839697677)">
+                <path d="M-0.27 8 C33 -46.13, 165.87 -228.76, 199.05 -274.37 M1.79 7 C35.5 -47.25, 168.16 -227.98, 201.4 -273.19" stroke="#9775fa" stroke-width="2" fill="none"></path>
+            </g>
+        </g>
+        <mask></mask>
+        <g stroke-linecap="round">
+            <g transform="translate(210 410) rotate(0 150 0)">
+                <path
+                    d="M-0.68 -0.68 C49.21 -0.67, 249.14 -0.47, 299.1 -0.36 M1.16 1.58 C51.45 1.79, 251.29 1.04, 301.34 0.98"
+                    stroke="#1e1e1e" stroke-width="2" fill="none"></path>
+            </g>
+            <g transform="translate(210 410) rotate(0 150 0)">
+                <path d="M302.17 1.49 L289.48 7.46 L289.4 -6.79 L301.09 1.06" stroke="none" stroke-width="0"
+                    fill="#1e1e1e" fill-rule="evenodd"></path>
+                <path
+                    d="M301.34 0.98 C296.69 1.55, 293.32 3.24, 287.76 7.36 M301.34 0.98 C297.36 3.08, 292.93 4.78, 287.76 7.36 M287.76 7.36 C288.3 2.23, 287.33 -1.4, 287.73 -5.32 M287.76 7.36 C288.18 3.32, 288.44 -0.28, 287.73 -5.32 M287.73 -5.32 C292.22 -5.05, 293.63 -3.46, 301.34 0.98 M287.73 -5.32 C291.64 -3.55, 296.13 -1.14, 301.34 0.98 M301.34 0.98 C301.34 0.98, 301.34 0.98, 301.34 0.98 M301.34 0.98 C301.34 0.98, 301.34 0.98, 301.34 0.98"
+                    stroke="#1e1e1e" stroke-width="2" fill="none"></path>
+            </g>
+        </g>
+        <mask></mask>
+        <g transform="translate(220 90) rotate(0 7.741996765136719 17.5)">
+            <text x="0" y="24.668" font-family="Excalifont, Xiaolai, Segoe UI Emoji" font-size="28px" fill="#1e1e1e"
+                text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">t</text>
+        </g>
+        <g transform="translate(509 376) rotate(0 8.273994445800781 17.5)">
+            <text x="0" y="24.668" font-family="Excalifont, Xiaolai, Segoe UI Emoji" font-size="28px" fill="#1e1e1e"
+                text-anchor="start" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">x</text>
+        </g>
+        <g stroke-linecap="round">
+            <g transform="translate(210 410) rotate(0 0 -150)">
+                <path
+                    d="M-1.1 -0.37 C-0.92 -50.29, 0.05 -249.68, 0.15 -299.6 M0.52 -1.6 C0.65 -51.89, -0.37 -252.02, -0.72 -301.51"
+                    stroke="#1e1e1e" stroke-width="2" fill="none"></path>
+            </g>
+            <g transform="translate(210 410) rotate(0 0 -150)">
+                <path d="M-0.97 -301.43 L5.58 -288.17 L-8.88 -288.63 L-1.02 -301.04" stroke="none" stroke-width="0"
+                    fill="#1e1e1e" fill-rule="evenodd"></path>
+                <path
+                    d="M-0.72 -301.51 C0.22 -298.28, 2.6 -296.16, 5.7 -287.95 M-0.72 -301.51 C0.65 -296.97, 2.66 -293.33, 5.7 -287.95 M5.7 -287.95 C3.74 -287.29, -0.58 -286.73, -6.98 -287.88 M5.7 -287.95 C1.34 -287.33, -4.5 -288.07, -6.98 -287.88 M-6.98 -287.88 C-4.51 -291.43, -4.11 -293.72, -0.72 -301.51 M-6.98 -287.88 C-4.45 -292.57, -1.6 -298.11, -0.72 -301.51 M-0.72 -301.51 C-0.72 -301.51, -0.72 -301.51, -0.72 -301.51 M-0.72 -301.51 C-0.72 -301.51, -0.72 -301.51, -0.72 -301.51"
+                    stroke="#1e1e1e" stroke-width="2" fill="none"></path>
+            </g>
+        </g>
+        <mask></mask>
+        <g transform="translate(410 130) rotate(0 30.48999786376953 12.5)">
+            <text x="0" y="17.619999999999997" font-family="Excalifont, Xiaolai, Segoe UI Emoji" font-size="20px"
+                fill="#7950f2" text-anchor="start" style="white-space: pre;" direction="ltr"
+                dominant-baseline="alphabetic">x = vt</text>
+        </g>
+        <g transform="translate(263.1482819382909 212.51424472707185) rotate(0 0 0.016485545473756247)" stroke="none">
+            <path fill="transparent"
+                d="M 4.24,-1.32 Q 4.24,-1.32 4.30,-0.26 4.36,0.80 3.93,1.76 3.49,2.73 2.65,3.39 1.82,4.05 0.77,4.24 -0.26,4.43 -1.28,4.11 -2.29,3.80 -3.04,3.04 -3.80,2.29 -4.11,1.28 -4.43,0.26 -4.24,-0.77 -4.04,-1.82 -3.39,-2.65 -2.73,-3.49 -1.76,-3.93 -0.79,-4.36 0.26,-4.30 1.32,-4.23 2.23,-3.68 3.14,-3.13 3.69,-2.23 L 4.24,-1.32 Z">
+            </path>
+        </g>
+        <g transform="translate(280.79440981336984 221.82308273790392) rotate(0 0.00005000000000165983 0.00005000000000165983)"
+            stroke="none">
+            <path fill="transparent"
+                d="M 3.14,-3.14 Q 3.14,-3.14 3.55,-2.55 3.97,-1.97 4.18,-1.28 4.40,-0.59 4.38,0.11 4.36,0.83 4.11,1.51 3.86,2.18 3.41,2.74 2.96,3.30 2.36,3.69 1.75,4.07 1.05,4.25 0.36,4.42 -0.35,4.36 -1.07,4.30 -1.73,4.02 -2.39,3.74 -2.92,3.26 -3.46,2.78 -3.81,2.15 -4.16,1.53 -4.30,0.82 -4.43,0.11 -4.34,-0.59 -4.24,-1.30 -3.92,-1.94 -3.60,-2.59 -3.09,-3.09 -2.59,-3.60 -1.94,-3.92 -1.30,-4.24 -0.59,-4.34 0.12,-4.43 0.82,-4.30 1.53,-4.16 2.15,-3.81 2.78,-3.46 3.26,-2.92 3.74,-2.39 4.02,-1.73 4.31,-1.07 4.36,-0.35 4.42,0.36 4.25,1.05 4.07,1.75 3.69,2.36 3.30,2.96 2.74,3.41 2.18,3.86 1.51,4.11 0.83,4.36 0.11,4.38 -0.60,4.40 -1.28,4.18 -1.97,3.97 -2.55,3.55 -3.14,3.13 -3.14,3.14 -3.14,3.14 -3.47,2.71 -3.80,2.29 -4.02,1.80 -4.24,1.32 -4.33,0.79 -4.43,0.26 -4.40,-0.26 -4.36,-0.80 -4.20,-1.31 -4.04,-1.82 -3.77,-2.28 -3.49,-2.73 -3.11,-3.11 -2.73,-3.49 -2.28,-3.77 -1.82,-4.05 -1.31,-4.20 -0.80,-4.36 -0.26,-4.40 0.26,-4.43 0.79,-4.33 1.32,-4.24 1.80,-4.02 2.29,-3.80 2.71,-3.47 3.14,-3.14 3.14,-3.14 L 3.14,-3.14 Z">
+            </path>
+        </g>
+
+        <g id="spaceship" transform="translate(-210 110)">
+            <g transform="translate(392.91354540339034 271.2792783287613) rotate(0 29.42014256448101 24.95801544573942)"
+                stroke="none">
+                <path
+                    d="M-0.43 0.41 C3.85 0, 19.22 -0.56, 25.03 -0.66 C30.84 -0.76, 31.7 -0.35, 34.4 -0.18 C37.1 -0.02, 38.57 -1.18, 41.23 0.33 C43.89 1.83, 48.29 6.96, 50.36 8.85 C52.44 10.73, 52.38 9.24, 53.69 11.63 C55 14.02, 56.96 20.18, 58.23 23.18 C59.5 26.19, 61.67 27.36, 61.32 29.67 C60.97 31.98, 57.37 35.39, 56.11 37.04 C54.85 38.7, 56.84 37.91, 53.73 39.63 C50.62 41.34, 41.48 45.07, 37.46 47.32 C33.44 49.56, 34.53 52.3, 29.61 53.09 C24.69 53.89, 11.97 53.16, 7.93 52.09 C3.88 51.03, 7.04 50.14, 5.34 46.71 C3.64 43.29, -0.91 37.03, -2.3 31.54 C-3.68 26.05, -2.76 18.41, -2.99 13.76 C-3.21 9.12, -3.66 5.36, -3.62 3.67"
+                    stroke="none" stroke-width="0" fill="#ffffff" fill-rule="evenodd"></path>
+                <path fill="transparent"
+                    d="M -0.34,-5.04 Q -0.34,-5.04 1.00,-5.21 2.35,-5.38 4.50,-5.77 6.64,-6.15 8.81,-6.60 10.98,-7.05 13.33,-7.31 15.68,-7.57 17.91,-7.71 20.13,-7.85 22.32,-7.93 24.51,-8.02 26.88,-7.87 29.25,-7.71 31.55,-7.44 33.85,-7.17 35.91,-6.63 37.98,-6.09 40.27,-5.17 42.56,-4.24 44.62,-3.16 46.68,-2.07 48.53,-0.98 50.37,0.11 52.73,1.44 55.08,2.76 56.74,4.24 58.39,5.73 59.82,7.54 61.25,9.35 62.52,11.55 63.79,13.75 64.90,15.97 66.00,18.18 67.03,20.27 68.07,22.36 68.68,24.71 69.30,27.06 69.13,29.20 68.95,31.34 68.01,33.34 67.07,35.34 65.77,37.29 64.48,39.25 62.74,41.10 61.01,42.94 59.03,44.67 57.05,46.40 55.05,47.68 53.04,48.97 51.06,49.97 49.08,50.98 46.70,52.24 44.33,53.49 42.27,54.50 40.20,55.50 37.75,56.40 35.29,57.29 32.35,58.02 29.40,58.75 26.93,58.56 24.46,58.37 21.96,58.45 19.46,58.52 17.32,58.54 15.18,58.56 12.65,58.46 10.12,58.36 7.84,57.68 5.56,57.00 3.56,55.78 1.57,54.57 -0.27,52.64 -2.12,50.72 -3.38,48.69 -4.63,46.66 -5.72,44.52 -6.81,42.38 -7.67,40.08 -8.53,37.78 -9.04,35.48 -9.56,33.19 -9.71,30.66 -9.86,28.14 -9.89,25.26 -9.92,22.38 -10.08,20.24 -10.25,18.10 -10.43,15.88 -10.60,13.66 -10.67,11.45 -10.73,9.24 -10.31,6.88 -9.88,4.53 -9.43,3.34 -8.99,2.16 -8.18,1.18 -7.38,0.20 -6.31,-0.47 -5.24,-1.14 -4.01,-1.44 -2.78,-1.73 -1.51,-1.62 -0.25,-1.50 0.90,-0.99 2.06,-0.48 2.99,0.36 3.93,1.21 4.54,2.32 5.15,3.43 5.38,4.67 5.61,5.92 5.43,7.17 5.25,8.43 4.68,9.55 4.10,10.68 3.20,11.57 2.30,12.46 1.16,13.01 0.02,13.57 -1.23,13.73 -2.48,13.89 -3.72,13.64 -4.97,13.39 -6.06,12.76 -7.16,12.12 -8.00,11.17 -8.84,10.22 -9.33,9.06 -9.82,7.89 -9.91,6.63 -10.00,5.36 -9.68,4.14 -9.37,2.91 -8.68,1.85 -7.99,0.79 -6.99,0.00 -6.00,-0.77 -4.81,-1.20 -3.61,-1.62 -2.35,-1.65 -1.08,-1.67 0.12,-1.29 1.32,-0.91 2.34,-0.16 3.37,0.58 4.10,1.61 4.83,2.65 5.19,3.86 5.55,5.07 5.50,6.34 5.46,7.61 5.46,7.60 5.46,7.60 5.20,9.86 4.94,12.12 5.10,14.40 5.25,16.69 5.43,18.82 5.60,20.95 5.67,23.75 5.73,26.55 5.89,29.04 6.04,31.52 6.76,33.74 7.48,35.96 8.52,37.95 9.56,39.95 11.18,41.47 12.79,42.99 15.02,43.00 17.25,43.01 19.54,42.91 21.84,42.81 24.07,43.23 26.31,43.66 28.49,43.13 30.67,42.60 32.74,41.84 34.82,41.08 37.08,39.88 39.34,38.67 41.41,37.65 43.48,36.62 45.40,35.54 47.32,34.46 49.07,32.91 50.83,31.35 52.16,29.21 53.48,27.07 52.36,24.93 51.24,22.79 50.26,20.77 49.28,18.75 47.92,16.92 46.57,15.09 44.69,13.96 42.80,12.83 40.93,11.64 39.06,10.45 37.09,9.33 35.12,8.22 32.87,7.38 30.62,6.55 28.29,6.15 25.97,5.75 23.56,5.55 21.16,5.34 18.82,5.20 16.48,5.06 14.23,4.98 11.98,4.91 9.83,4.97 7.67,5.04 5.29,4.99 2.91,4.94 1.55,4.92 0.19,4.89 -0.40,4.85 -1.00,4.81 -1.57,4.63 -2.14,4.45 -2.66,4.13 -3.17,3.82 -3.59,3.39 -4.01,2.97 -4.32,2.45 -4.63,1.93 -4.80,1.36 -4.98,0.79 -5.01,0.19 -5.04,-0.40 -4.93,-0.99 -4.82,-1.58 -4.57,-2.13 -4.32,-2.67 -3.94,-3.14 -3.57,-3.61 -3.09,-3.98 -2.62,-4.35 -2.07,-4.59 -1.52,-4.83 -0.93,-4.94 -0.34,-5.04 -0.34,-5.04 L -0.34,-5.04 Z">
+                </path>
+            </g>
+            <g
+                transform="translate(394.98782268618146 270.00000000000006) rotate(89.99999999999994 27.261063943892196 27.261063943892196)">
+                <use href="#image-88b5a33e21a70df840156fea34bd0c375524e6e1" width="55" height="55" opacity="1"></use>
+            </g>
+        </g>
+
+        <g id="x-label" transform="translate(270 430) rotate(0 11.080001831054688 12.5)">
+            <text x="0" y="17.619999999999997" font-family="Excalifont, Xiaolai, Segoe UI Emoji" font-size="20px"
+                fill="#6741d9" text-anchor="start" style="white-space: pre;" direction="ltr"
+                dominant-baseline="alphabetic">vt</text>
+        </g>
+        <g id="t-label" transform="translate(170 310) rotate(0 5.529998779296875 12.5)">
+            <text x="0" y="17.619999999999997" font-family="Excalifont, Xiaolai, Segoe UI Emoji" font-size="20px"
+                fill="#6741d9" text-anchor="start" style="white-space: pre;" direction="ltr"
+                dominant-baseline="alphabetic">t</text>
+        </g>
+    </svg>
+
+
+
+
+    <input id="slider" type="range" min="0" max="170" value="0" />
+    <p>t = <span id="time">0</span></p>
+    <p>x = <span id="x">0</span></p>
+    <p>y = <span id="y">0</span></p>
+    <script>
+        const slider = document.getElementById('slider');
+        const spaceship = document.getElementById('spaceship');
+        const dashedLineT = document.getElementById('dashed-line-t');
+        const dashedLineX = document.getElementById('dashed-line-x');
+        const timeDisplay = document.getElementById('time');
+        const xDisplay = document.getElementById('x');
+        const yDisplay = document.getElementById('y');
+
+        // d = "M0.04 -0.81 C-0.13 22.4, -0.96 115.82, -0.88 139.23";
+
+
+        let dy = 24
+        let dx = 105
+
+        function updateSpaceship(e) {
+            let x0 = -210
+            let y0 = 110
+
+            let xf = -42
+            let yf = -120
+
+            let gradient = (yf - y0) / (xf - x0)
+            let x = x0 + parseInt(e.target.value);
+            let y = y0 - parseInt(e.target.value) * -gradient; // Adjust the y-coordinate to create a diagonal movement
+            spaceship.setAttribute(
+                'transform',
+                `translate(${x} ${y})`
+            );
+        }
+
+        function updateXLine(e) {
+            let x0 = 0
+            let y0 = 0
+        }
+
+        slider.addEventListener('input', (e) => {
+            updateSpaceship(e);
+            let x0 = -100
+            let y0 = 140
+
+            let dx = parseInt(e.target.value);
+            let x = x0 + parseInt(e.target.value);
+            let dy = parseInt(e.target.value)*1.3
+            // "M-0.56 -0.03 C-0.53 23.4, -0.25 116.36, -0.27 139.59"
+            dashedLineX.setAttribute('d', `M${x0+dx} ${y0} L${x0+dx} ${y0-dy}`);
+            dashedLineT.setAttribute('d', `M${x0} ${y0-dy-6*1.3} L${x0+dx+100} ${y0-dy-6*1.3}`);
+            // dashedLineT.setAttribute('d', `M${x0} ${y} L${x+dx} ${y}`);
+
+            timeDisplay.textContent = e.target.value;
+            xDisplay.textContent = x;
+            yDisplay.textContent = y;
+        });
+    </script>
+</body>
+
+</html>
