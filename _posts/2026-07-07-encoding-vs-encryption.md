@@ -6,7 +6,10 @@ image:
 
 Encoding and Encryption are two terms often used in the world of cyber-security. Although they sound similar, they have different purposes, and using one instead of the other could break your application/system's entire cyber-security flow.
 
-# Numbering Systems
+# 1 Encoding
+Encoding in its most basic form is the act of converting data from one format to another format using a predetermined set of rules. It has no security benefits, and only ensures consistency when transmitting/sharing data.
+
+## 1.1 Numbering Systems
 A numbering system is a way to describe a value or quantity by a chosen set of symbols. The same value/quantity can be described by different symbols depending on the chosen numbering system
 
 * **decimal (base 10)** - In daily life, we've chosen the decimal system, this is a useful system as it is base 10 (the same as the number of fingers on our hands).
@@ -36,8 +39,8 @@ A numbering system is a way to describe a value or quantity by a chosen set of s
 | 45 | 101101 | 2D |
 | 145 | 10010001 | 91 |
 
-# Character Encoding
-## Encoding Standards
+## 1.2 Character Encoding
+### 1.2.1 Encoding Standards
 The numbering systems are a way of describing what information is stored on a computer using a chosen set of symbols. It is how data is transferred between parts of a program or computer. If I have a sentence `"Hasta la vista, baby."`, this is stored as a set of values on the comnputer, where each character corresponds to a value. For example the letter `H` could be stored as a value of `72` (decimal), i.e. if the computer sees a value of `72`, it knows to print the letter `H`.
 
 Back in the day different computer manufacturers would choose different mappings between values and letters/symbols, which meant that two computers could not directly talk to one another. One computer could sees a value of `72` and prints out `H` while the other prints out `B`. To solve this an encoding standard is used: a way to standardize the mappings of values to symbols.
@@ -48,7 +51,7 @@ Back in the day different computer manufacturers would choose different mappings
 These standards are not necessarily the mapping themselves, but the specificiation that defines **how** to map the characters/symbols to values.
 
 
-## Encoding Formats
+### 1.2.2 Encoding Formats
 Encoding formats are the implementation of the standards in a specific format, they are the mappings themselves. The different character encoding formats will belong to different standards.
 
 * **ASCII** [*ASCII standard*] - The ASCII standard has only one encoding format (often referred to by the same name).
@@ -62,30 +65,17 @@ Encoding formats are the implementation of the standards in a specific format, t
 | ♥ | 9829 | 26 65 | 00 00 26 65 |
 
 
-# Data Encoding
+## 1.3 Data Encoding
 Character encoding maps characters to numeric values according to a predetermined map. Data encoding transformas any binary data (not limited to characters) into a specified format using a predetermined set of transformations, allowing for safe transmission/storage.
 
-## Base64 Encoding Format
+### 1.3.1 Base64 Encoding Format
 The most common use data encoding format is Base64, it's defined in RFC 4648, which is part of the IETF internet standard.
 
 Base64 encoding allows one to represent binary data as a compact string of ASCII characters. Each character corresponds to an integer between 0 and 63, which can be represented by a 6 bit character ($2^6=64$).
 
 ![alt text]({{ site.baseurl }}/assets/images/2026-07-07-encoding-vs-encryption/base64_index_table.png)
 
-#### Advantages
-* **Safe transmission** - Convert any data into ASCII-safe text that won't be corrupted over text-only channels (email, JSON, APIs)
-* **Universal compatibility** - Uses only 64 characters, works everywhere (ASCII standard)
-* **Reversible** - Can be decoded back to original binary data
-* **Standardized** - RFC 4648 ensures consistency across systems
-
-#### Disadvantages
-* **Size overhead** - Expands data by ~33% (4 base64 chars = 3 original bytes)
-* **No security** - Easily reversable by anyone
-* **Padding bugs** - (see below)
-* **Performance cost** - Each piece of data needs to be encoded and decoded when being sent
-* **Not human-readable** - Encoded string looks like a bunch of random characters
-
-### Base64 Encoding a String
+#### Base64 Encoding a String
 
 A string can be encoded in the following steps
 
@@ -100,7 +90,7 @@ A string can be encoded in the following steps
 
 This can be used to convert any data into a set of 64 ASCII characters. Even a picture is a set of bytes (1's and 0's), which can be encoded as a base64 string, which can then be transmitted safely through JSON, email, etc. The receiver then simply runs the encoding steps in reverse to obtain the original data.
 
-### Base64 Padding
+#### Base64 Padding
 
 - When converting from 8-bit bytes to 6-bit bytes there is a chance that the list of binary digits is not a multiple of 6. In this case the number is padded with 0’s
 - The output of base64 encoding is by convention a multiple of 4. If this is not the case the remaining characters are padded with `=` characters.
@@ -109,4 +99,22 @@ This can be used to convert any data into a set of 64 ASCII characters. Even a p
 
 When decoding tokens, this can be a source of bugs if not taken into account.
 
+#### Advantages
+* **Safe transmission** - Convert any data into ASCII-safe text that won't be corrupted over text-only channels (email, JSON, APIs)
+* **Universal compatibility** - Works everywhere (64 ASCII characters)
+* **Reversible** - Can be decoded back to original binary data
+* **Standardized** - RFC 4648 ensures consistency across systems
+
+#### Disadvantages
+* **Size overhead** - Expands data by ~33% (4 base64 chars = 3 original bytes)
+* **No security** - Easily reversable by anyone
+* **Padding bugs** - Need to handle `=` padding correctly
+* **Performance cost** - Data needs to be encoded and decoded when transmitted
+* **Not human-readable** - Encoded string looks like a bunch of random characters
+
 ---
+
+# 2 Encryption
+Encoding only ensure consistency, while encryption ensures security. Encryption is the act of converting plain text into an unreadable set of characters that can only be decrypted with the correct key.
+
+
