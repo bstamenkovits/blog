@@ -1,9 +1,9 @@
 ---
 ---
-@import "main";
-@import "post";
-@import "navigation";
-@import "code-highlights";
-@import "archive";
-@import "hero";
-@import "table";
+@use "main";
+@use "post";
+@use "navigation";
+@use "code-highlights";
+@use "archive";
+@use "hero";
+@use "table";
