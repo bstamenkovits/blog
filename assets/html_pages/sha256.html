@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>bitwise</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>sha256</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7796,28 +7796,39 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a7b4db0d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ca433513">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Bitwise-Operations"><strong>Bitwise Operations</strong><a class="anchor-link" href="#Bitwise-Operations">¶</a></h1>
+<h1 id="SHA-256"><strong>SHA-256</strong><a class="anchor-link" href="#SHA-256">¶</a></h1>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3387d7c3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fc477b1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This is an overview of common bitwise operations, which are essential for understanding the functions used in the SHA family of hashing algorithms.</p>
+<p>Implementing the SHA-256 in Python from scratch using only the native language components (no imports)</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3a952616">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4a97ad96">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Functions">Functions<a class="anchor-link" href="#Functions">¶</a></h2><p>These are the basic functions used in the SHA-256 algorithm</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=39b0c725">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7825,40 +7836,74 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">red</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\033</span><span class="s2">[31m</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m"</span>
-<span class="n">green</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\033</span><span class="s2">[32m</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="se">\033</span><span class="s2">[0m"</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">shr</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    See FIPS 180-4, section 3.2.5, for details on the right shift operation.</span>
+
+<span class="sd">    SHR(x, n) = x &gt;&gt; n</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value(int): the value to be shifted right.</span>
+<span class="sd">        amount(int): the number of bits to shift the value by.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (int): the value shifted right by the given amount.</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="n">amount</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">rotr</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="nb">int</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span><span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    See FIPS 180-4, section 3.2.4, for details on the right rotation operation.</span>
+
+<span class="sd">    ROTR(x, n) = (x &gt;&gt; n) v (x &lt;&lt; w - n)</span>
+<span class="sd">    Where</span>
+<span class="sd">        w   =   the word size (32 bits for SHA-256)</span>
+<span class="sd">        v   =   is the bitwise OR operation.</span>
+
+<span class="sd">    The expression above is only a mathematical trick to obtain the right</span>
+<span class="sd">    rotation of a 32-bit value. The resulting number is padded with 0's on the</span>
+<span class="sd">    left side due to `value &lt;&lt; (32 - amount)`. The bitwise OR operation then</span>
+<span class="sd">    combines the two shifted values.</span>
+
+<span class="sd">    0xFFFFFFFF is a 32-bit value of all 1's. Using the bitwise AND operation</span>
+<span class="sd">    with 0xFFFFFFFF ensures that the result is a 32-bit value, effectively</span>
+<span class="sd">    discarding any bits beyond the 32nd bit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value(int): the value to be rotated right.</span>
+<span class="sd">        amount(int): the number of bits to rotate the value by.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (int): the 32-bit value rotated right by the given amount.</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="n">amount</span> <span class="o">|</span> <span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">32</span> <span class="o">-</span> <span class="n">amount</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+
+
+<span class="n">choose</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">z</span><span class="p">)</span>
+<span class="n">majority</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span> <span class="n">z</span><span class="p">)</span> <span class="o">^</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="n">z</span><span class="p">)</span>
+
+<span class="n">Sigma0</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">^</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="o">^</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
+<span class="n">Sigma1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">^</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="o">^</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+<span class="n">sigma0</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span> <span class="o">^</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span> <span class="o">^</span> <span class="n">shr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">sigma1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span> <span class="o">^</span> <span class="n">rotr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span> <span class="o">^</span> <span class="n">shr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fd463da6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e7261ce5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Logic-Operations">Logic Operations<a class="anchor-link" href="#Logic-Operations">¶</a></h2>
+<h2 id="Constants">Constants<a class="anchor-link" href="#Constants">¶</a></h2><p>The constants defined by the official specification document for SHA-256</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=355e537a">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="AND-Operation"><code>AND</code> Operation<a class="anchor-link" href="#AND-Operation">¶</a></h3><p><em>Are both bits 1?</em></p>
-<ul>
-<li>Mathematical symbol $\land$</li>
-<li>Python symbol <code>&amp;</code></li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=3761c460">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5f254841">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7866,71 +7911,63 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b1</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mb">0b0</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="sd">"""</span>
+<span class="sd">SHA-256 Initial Hash Values H, as defined in FIPS 180-4 section 5.3.2.</span>
+<span class="sd">The first thirty-two bits of the fractional parts of the square roots of the</span>
+<span class="sd">first eight prime numbers.</span>
+<span class="sd">"""</span>
+<span class="n">H0</span> <span class="o">=</span> <span class="mh">0x6a09e667</span>
+<span class="n">H1</span> <span class="o">=</span> <span class="mh">0xbb67ae85</span>
+<span class="n">H2</span> <span class="o">=</span> <span class="mh">0x3c6ef372</span>
+<span class="n">H3</span> <span class="o">=</span> <span class="mh">0xa54ff53a</span>
+<span class="n">H4</span> <span class="o">=</span> <span class="mh">0x510e527f</span>
+<span class="n">H5</span> <span class="o">=</span> <span class="mh">0x9b05688c</span>
+<span class="n">H6</span> <span class="o">=</span> <span class="mh">0x1f83d9ab</span>
+<span class="n">H7</span> <span class="o">=</span> <span class="mh">0x5be0cd19</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Bitwise AND of two 1-bit binary numbers:</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> &amp; </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> &amp; </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">y</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> &amp; </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">y</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> &amp; </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">y</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">y</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">INITIAL_HASH</span> <span class="o">=</span> <span class="p">[</span><span class="n">H0</span><span class="p">,</span> <span class="n">H1</span><span class="p">,</span> <span class="n">H2</span><span class="p">,</span> <span class="n">H3</span><span class="p">,</span> <span class="n">H4</span><span class="p">,</span> <span class="n">H5</span><span class="p">,</span> <span class="n">H6</span><span class="p">,</span> <span class="n">H7</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Bitwise AND of two 8-bit binary numbers:</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="mb">0b10101010</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mb">0b11001100</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="n">y</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">" &amp; </span><span class="si">{</span><span class="n">y</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"⎯⎯⎯⎯⎯⎯⎯"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">z</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">"""</span>
+<span class="sd">SHA-256 Constants K, as defined in FIPS 180-4 section 4.2.2.</span>
+<span class="sd">The first 32 bits of the fractional parts of the cube roots of the first 64</span>
+<span class="sd">prime numbers.</span>
+<span class="sd">"""</span>
+<span class="n">K</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mh">0x428a2f98</span><span class="p">,</span> <span class="mh">0x71374491</span><span class="p">,</span> <span class="mh">0xb5c0fbcf</span><span class="p">,</span> <span class="mh">0xe9b5dba5</span><span class="p">,</span>
+    <span class="mh">0x3956c25b</span><span class="p">,</span> <span class="mh">0x59f111f1</span><span class="p">,</span> <span class="mh">0x923f82a4</span><span class="p">,</span> <span class="mh">0xab1c5ed5</span><span class="p">,</span>
+    <span class="mh">0xd807aa98</span><span class="p">,</span> <span class="mh">0x12835b01</span><span class="p">,</span> <span class="mh">0x243185be</span><span class="p">,</span> <span class="mh">0x550c7dc3</span><span class="p">,</span>
+    <span class="mh">0x72be5d74</span><span class="p">,</span> <span class="mh">0x80deb1fe</span><span class="p">,</span> <span class="mh">0x9bdc06a7</span><span class="p">,</span> <span class="mh">0xc19bf174</span><span class="p">,</span>
+    <span class="mh">0xe49b69c1</span><span class="p">,</span> <span class="mh">0xefbe4786</span><span class="p">,</span> <span class="mh">0x0fc19dc6</span><span class="p">,</span> <span class="mh">0x240ca1cc</span><span class="p">,</span>
+    <span class="mh">0x2de92c6f</span><span class="p">,</span> <span class="mh">0x4a7484aa</span><span class="p">,</span> <span class="mh">0x5cb0a9dc</span><span class="p">,</span> <span class="mh">0x76f988da</span><span class="p">,</span>
+    <span class="mh">0x983e5152</span><span class="p">,</span> <span class="mh">0xa831c66d</span><span class="p">,</span> <span class="mh">0xb00327c8</span><span class="p">,</span> <span class="mh">0xbf597fc7</span><span class="p">,</span>
+    <span class="mh">0xc6e00bf3</span><span class="p">,</span> <span class="mh">0xd5a79147</span><span class="p">,</span> <span class="mh">0x06ca6351</span><span class="p">,</span> <span class="mh">0x14292967</span><span class="p">,</span>
+    <span class="mh">0x27b70a85</span><span class="p">,</span> <span class="mh">0x2e1b2138</span><span class="p">,</span> <span class="mh">0x4d2c6dfc</span><span class="p">,</span> <span class="mh">0x53380d13</span><span class="p">,</span>
+    <span class="mh">0x650a7354</span><span class="p">,</span> <span class="mh">0x766a0abb</span><span class="p">,</span> <span class="mh">0x81c2c92e</span><span class="p">,</span> <span class="mh">0x92722c85</span><span class="p">,</span>
+    <span class="mh">0xa2bfe8a1</span><span class="p">,</span> <span class="mh">0xa81a664b</span><span class="p">,</span> <span class="mh">0xc24b8b70</span><span class="p">,</span> <span class="mh">0xc76c51a3</span><span class="p">,</span>
+    <span class="mh">0xd192e819</span><span class="p">,</span> <span class="mh">0xd6990624</span><span class="p">,</span> <span class="mh">0xf40e3585</span><span class="p">,</span> <span class="mh">0x106aa070</span><span class="p">,</span>
+    <span class="mh">0x19a4c116</span><span class="p">,</span> <span class="mh">0x1e376c08</span><span class="p">,</span> <span class="mh">0x2748774c</span><span class="p">,</span> <span class="mh">0x34b0bcb5</span><span class="p">,</span>
+    <span class="mh">0x391c0cb3</span><span class="p">,</span> <span class="mh">0x4ed8aa4a</span><span class="p">,</span> <span class="mh">0x5b9cca4f</span><span class="p">,</span> <span class="mh">0x682e6ff3</span><span class="p">,</span>
+    <span class="mh">0x748f82ee</span><span class="p">,</span> <span class="mh">0x78a5636f</span><span class="p">,</span> <span class="mh">0x84c87814</span><span class="p">,</span> <span class="mh">0x8cc70208</span><span class="p">,</span>
+    <span class="mh">0x90befffa</span><span class="p">,</span> <span class="mh">0xa4506ceb</span><span class="p">,</span> <span class="mh">0xbef9a3f7</span><span class="p">,</span> <span class="mh">0xc67178f2</span><span class="p">,</span>
+<span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Bitwise AND of two 1-bit binary numbers:
-
-1 &amp; 1 = 1
-1 &amp; 0 = 0
-0 &amp; 1 = 0
-0 &amp; 0 = 0
-
-Bitwise AND of two 8-bit binary numbers:
-
-   10101010
- &amp; 11001100
-⎯⎯⎯⎯⎯⎯⎯
-   10001000
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=80983ee2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ffd51a13">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="OR-Operation"><code>OR</code> Operation<a class="anchor-link" href="#OR-Operation">¶</a></h3><p><em>Is one of the bits 1?</em></p>
-<ul>
-<li>Mathematical symbol $\lor$</li>
-<li>Python symbol <code>|</code></li>
-</ul>
+<h2 id="Pre-Processing">Pre-Processing<a class="anchor-link" href="#Pre-Processing">¶</a></h2>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d6ab0eda">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=92e03dd5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7938,71 +7975,76 @@ Bitwise AND of two 8-bit binary numbers:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b1</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mb">0b0</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">pre_processing</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Prepare an arbitrary input string for the SHA-256 hashing algorithm.</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Bitwise OR of two 1-bit binary numbers:</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">y</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">y</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">y</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">y</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">    The following steps are taken (following the official specification as</span>
+<span class="sd">    defined in FIPS 180-4, section 5 &amp; section 6.2.1):</span>
+<span class="sd">        1) The string is encoded to bytes using the UTF-8 format.</span>
+<span class="sd">        2) The message is padded with the relevant bytes</span>
+<span class="sd">            - seperator byte</span>
+<span class="sd">            - empty "zero" bytes</span>
+<span class="sd">            - length bytes</span>
+<span class="sd">        3) The output is grouped</span>
+<span class="sd">            - the message into 512-bit (64-byte) blocks</span>
+<span class="sd">            - the blocks into 32-bit (4-byte) words</span>
+<span class="sd">            - the bytes of the words are cast to int</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Bitwise OR of two 8-bit binary numbers:</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">    The reason the words are cast to int, is because Python works nicest with</span>
+<span class="sd">    integers when performing the arithmatic required for the SHA-256 algorithm</span>
+<span class="sd">    (e.g. sigma0, sigma1, etc.).</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="mb">0b10101010</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mb">0b11001100</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">|</span> <span class="n">y</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_string(str): the input string to be prepared for hashing.</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">" | </span><span class="si">{</span><span class="n">y</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"⎯⎯⎯⎯⎯⎯⎯"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">z</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        blocks(list[list[int]]): the padded message grouped into 512-bit</span>
+<span class="sd">            blocks, where each block is a list of 16 32-bit integer words.</span>
+<span class="sd">    """</span>
+    <span class="c1"># --- Step 1: Encode --- #</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">input_string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+
+    <span class="c1"># --- Step 2: Padding --- #</span>
+    <span class="n">padded</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="n">padded</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mh">0x80</span><span class="p">)</span>  <span class="c1"># seperator byte 0x80 (i.e. 0b10000000)</span>
+
+    <span class="c1"># add empty padding byte</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">padded</span><span class="p">)</span> <span class="o">%</span> <span class="mi">64</span> <span class="o">!=</span> <span class="mi">56</span><span class="p">:</span>
+        <span class="n">padded</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mh">0x00</span><span class="p">)</span>
+
+    <span class="c1"># last 8 bytes reserved for length of original message as big-endian bytes</span>
+    <span class="n">padded</span> <span class="o">+=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">"big"</span><span class="p">)</span>
+
+    <span class="c1"># --- Step 3: Grouping --- #</span>
+    <span class="n">blocks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">padded</span><span class="p">),</span> <span class="mi">64</span><span class="p">):</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">padded</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="mi">64</span><span class="p">]</span>
+        <span class="c1"># each block grouped as 16 4-byte words cast to int</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">block</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">j</span> <span class="o">+</span> <span class="mi">4</span><span class="p">],</span> <span class="s2">"big"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">blocks</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Bitwise OR of two 1-bit binary numbers:
-
-1 | 1 = 1
-1 | 0 = 1
-0 | 1 = 1
-0 | 0 = 0
-
-Bitwise OR of two 8-bit binary numbers:
-
-   10101010
- | 11001100
-⎯⎯⎯⎯⎯⎯⎯
-   11101110
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5fa4f228">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0e985b44">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="XOR-Operation"><code>XOR</code> Operation<a class="anchor-link" href="#XOR-Operation">¶</a></h3><p><em>Are the bits different?</em></p>
-<ul>
-<li>Mathematical symbol $\oplus$</li>
-<li>Python symbol <code>^</code></li>
-</ul>
+<h1 id="The-Algorithm">The Algorithm<a class="anchor-link" href="#The-Algorithm">¶</a></h1><p>This is the core logic of the SHA-256 algorithm</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=bfb16055">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=bab21835">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8010,76 +8052,104 @@ Bitwise OR of two 8-bit binary numbers:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b1</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mb">0b0</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_message_schedule</span><span class="p">(</span><span class="n">block</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Create the message schedule according to step 1 of FIPS 180-4 section 6.2.2</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> ^ </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">x</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> ^ </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">x</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">y</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> ^ </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">y</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">x</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> ^ </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">y</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">y</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        block(list[int]): a single block of 16 32-bit integer words.</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Bitwise AND of two 8-bit binary numbers:"</span><span class="p">)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        w(list[int]): the message schedule of 64 32-bit integer words.</span>
+<span class="sd">    """</span>
+    <span class="c1"># block = 16 words (int)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">block</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">64</span><span class="p">):</span>
+        <span class="n">word</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigma1</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">sigma0</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">15</span><span class="p">])</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="o">-</span><span class="mi">16</span><span class="p">])</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">w</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="mb">0b10101010</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mb">0b11001100</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">^</span> <span class="n">y</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">" ^ </span><span class="si">{</span><span class="n">y</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"⎯⎯⎯⎯⎯⎯⎯"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">z</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_block</span><span class="p">(</span><span class="n">block</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">hash_values</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Process a single block by applying the hashing algorithm to it according to</span>
+<span class="sd">    FIPS 180-4 section 6.2.2.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        block(list[int]): a single block of 16 32-bit integer words.</span>
+<span class="sd">        hash_values(list[int]): the current eight 32-bit hash values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        hash_values(list[int]): the eight 32-bit hash values updated with the</span>
+<span class="sd">            given block.</span>
+<span class="sd">    """</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">create_message_schedule</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+    <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">hash_values</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">):</span>
+        <span class="n">T1</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span> <span class="o">+</span> <span class="n">Sigma1</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">+</span> <span class="n">choose</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span> <span class="o">+</span> <span class="n">K</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">t</span><span class="p">])</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+        <span class="n">T2</span> <span class="o">=</span> <span class="p">(</span><span class="n">Sigma0</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">majority</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">g</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">e</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">T1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">T1</span> <span class="o">+</span> <span class="n">T2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+
+    <span class="c1"># update hash values (but keep them as 32-bit values)</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">e</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="n">g</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="n">hash_values</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_values</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span>
+    <span class="k">return</span> <span class="n">hash_values</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">process_blocks</span><span class="p">(</span><span class="n">blocks</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Given a list of blocks, initialize the initial hash values, and updated them</span>
+<span class="sd">    by running each block through the hashing algorithm (see `process_block`</span>
+<span class="sd">    function). See FIPS 180-4 section 6.2.2 for more detail.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        blocks(list[list[int]]): the list of blocks, where each block is a list</span>
+<span class="sd">            of 16 32-bit integer words.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        hash_values(list[int]): the final eight 32-bit hash values after</span>
+<span class="sd">            processing all blocks.</span>
+<span class="sd">    """</span>
+    <span class="n">hash_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">INITIAL_HASH</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+        <span class="n">hash_values</span> <span class="o">=</span> <span class="n">process_block</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">hash_values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">hash_values</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">finalize_hash_output</span><span class="p">(</span><span class="n">hash_values</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Given a set of hash values, convert them to a hex string.</span>
+
+<span class="sd">    Each hash value represents a 32-bit word, which is equivalent to 4 bytes.</span>
+<span class="sd">    Each value is first converted to a bytes object (`v.to_bytes(4, "big")`),</span>
+<span class="sd">    and then all 8 hash values as bytes are concatenated into a single bytes</span>
+<span class="sd">    object. Finally, the bytes object is returned as a hex string.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        hash_values(list[int]): the eight final 32-bit hash values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (str): the concatenated hash values as a hexadecimal string.</span>
+<span class="sd">    """</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"big"</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">hash_values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>1 ^ 1 = 0
-1 ^ 0 = 1
-0 ^ 1 = 1
-0 ^ 0 = 0
-
-Bitwise AND of two 8-bit binary numbers:
-   10101010
- ^ 11001100
-⎯⎯⎯⎯⎯⎯⎯
-   01100110
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e3d725a7">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="NOT-Operation"><code>NOT</code> Operation<a class="anchor-link" href="#NOT-Operation">¶</a></h3><p><em>flips the bit; 1 $\rightarrow$ 0, 0 $\rightarrow$ 1</em></p>
-<ul>
-<li>Mathematical symbol $\neg$</li>
-<li>Python symbol <code>~</code></li>
-</ul>
-<blockquote>
-<p><strong>NOTE</strong>:</p>
-<p><em>Python is a high-level language, which means it does not directly work with bits. It actually stores all values as integers (decimal numbering system). This means that the bitwise operations are performed on the integer values themselves, and the results are interpreted back to bit notation (binary).</em></p>
-<p><em>As a result the NOT operation is actually defined as <code>~x == -(x + 1)</code>. So <code>~1 == -2</code>, which in binary is an infinite number of 1's followed by a 0: 1...10. So in order to get correct binary interpretation, we need to only look at the relevant part of the bit. In this case we are working with numbers of size 1 (1-bit numbers), which means we only look at the last binary digit</em></p>
-<p><em>The way we can isolate this in Python is by using the <code>AND</code> operator, and a "mask" (a binary number consisting of only 1's).</em></p>
-<p><code>~1 = 11...110</code><br/>
-<code>~0b1 &amp; 0b1 = 11...110 &amp; 00...001 = 00...000 = 0b0</code><br/>
-<code>~0b0 &amp; 0b1 = 00...000 &amp; 00...001 = 00...001 = 0b1</code></p>
-</blockquote>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=34f2d281">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7641e74d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8087,66 +8157,36 @@ Bitwise AND of two 8-bit binary numbers:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b1</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mb">0b0</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sha256</span><span class="p">(</span><span class="n">input_string</span><span class="p">:</span><span class="nb">str</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Compute the SHA-256 hash of an input string.</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"~</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="o">~</span><span class="n">x</span><span class="o">&amp;</span><span class="w"> </span><span class="mb">0b1</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"~</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="o">~</span><span class="n">y</span><span class="o">&amp;</span><span class="w"> </span><span class="mb">0b1</span><span class="si">:</span><span class="s2">01b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        input_string(str): the input string to be hashed.</span>
 
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Bitwise NOT of an 8-bit binary number:"</span><span class="p">)</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="mb">0b10101010</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"~</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="o">~</span><span class="n">x</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mb">0b11111111</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># Mask to keep only the last 8 bits</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (str): the SHA-256 hash of the input string as a hexadecimal string.</span>
+<span class="sd">    """</span>
+    <span class="n">blocks</span> <span class="o">=</span> <span class="n">pre_processing</span><span class="p">(</span><span class="n">input_string</span><span class="p">)</span>
+    <span class="n">hash_values</span> <span class="o">=</span> <span class="n">process_blocks</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">finalize_hash_output</span><span class="p">(</span><span class="n">hash_values</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>~1 = 0
-~0 = 1
-
-Bitwise NOT of an 8-bit binary number:
-~10101010 = 01010101
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a7587e77">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=90eaf99d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Shifts-&amp;-Rotations">Shifts &amp; Rotations<a class="anchor-link" href="#Shifts-&amp;-Rotations">¶</a></h2>
+<h2 id="Example-Outputs">Example Outputs<a class="anchor-link" href="#Example-Outputs">¶</a></h2>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0ff52218">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Shift-Left-Operation">Shift Left Operation<a class="anchor-link" href="#Shift-Left-Operation">¶</a></h3><p><em>Slides all bits to the left by &amp;n&amp; positions. New bits on the right are filled with 0. Bits that fall off the left end are discarded (lost).</em></p>
-<ul>
-<li>Mathematical symbol $&lt;&lt;$</li>
-<li>Python symbol <code>&lt;&lt;</code></li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=89a60074">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f6bdd3c1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8154,14 +8194,7 @@ Bitwise NOT of an 8-bit binary number:
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b10101010</span>
-<span class="n">original</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">intermediate_step</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">red</span><span class="p">(</span><span class="s1">'101'</span><span class="p">)</span><span class="si">}</span><span class="s2"> 01010 </span><span class="si">{</span><span class="n">green</span><span class="p">(</span><span class="s1">'000'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"    </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mb">0b11111111</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Original:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">65</span><span class="si">}}{</span><span class="n">original</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Remove 3 from the left, add 3 zeros to the right:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">65</span><span class="si">}}{</span><span class="n">intermediate_step</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Left shift by 3:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">65</span><span class="si">}}{</span><span class="n">result</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sha256</span><span class="p">(</span><span class="s1">'abc'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8171,33 +8204,15 @@ Bitwise NOT of an 8-bit binary number:
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Original:                                                           10101010
-Remove 3 from the left, add 3 zeros to the right:                <span class="ansi-red-fg">101</span> 01010 <span class="ansi-green-fg">000</span>
-Left shift by 3:                                                     01010000
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'</pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d2c7d1db">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Shift-Right-Operation">Shift Right Operation<a class="anchor-link" href="#Shift-Right-Operation">¶</a></h3><p><em>Slides all bits to the right by &amp;n&amp; positions. New bits on the left are filled with 0. Bits that fall off the right end are discarded (lost).</em></p>
-<ul>
-<li>Mathematical symbol $&gt;&gt;$</li>
-<li>Python symbol <code>&gt;&gt;</code></li>
-</ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1522e988">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=dc259010">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8205,15 +8220,7 @@ Left shift by 3:                                                     01010000
 <div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b10101010</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">original</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"    </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">intermediate_step</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">green</span><span class="p">(</span><span class="s1">'000'</span><span class="p">)</span><span class="si">}</span><span class="s2"> 10101 </span><span class="si">{</span><span class="n">red</span><span class="p">(</span><span class="s1">'010'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mb">0b11111111</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">"</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Original:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">65</span><span class="si">}}{</span><span class="n">original</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Remove </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> from the left, add </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> zeros to the right:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">65</span><span class="si">}}{</span><span class="n">intermediate_step</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Right shift by </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">65</span><span class="si">}}{</span><span class="n">result</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sha256</span><span class="p">(</span><span class="s1">'hello world'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8223,35 +8230,15 @@ Left shift by 3:                                                     01010000
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Original:                                                            10101010
-Remove 3 from the left, add 3 zeros to the right:                <span class="ansi-green-fg">000</span> 10101 <span class="ansi-red-fg">010</span>
-Right shift by 3:                                                 00010101
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9'</pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a8ab3f41">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Rotate-Right-Operation">Rotate Right Operation<a class="anchor-link" href="#Rotate-Right-Operation">¶</a></h3><p>Also slides bits right by n positions, but instead of discarding the bits that fall off, they wrap around to the left side.</p>
-<p>This operation is not explicitly implemented in Python, but can be achieved by using the shift operations. First a shift right operation is performed, this removes $n$ digits from the right side. These need to be added at the front, so a seperate operation takes the original input binary and shifts it in such a way that the $n$ digits on the right have been shifted over by the correct amount.</p>
-<p>This depends on the size of the binary (variable <code>s</code>). In this case we are using bytes (numbers with 8 bits), so <code>s=8</code>.</p>
-<blockquote>
-<p>NOTE: <em>Similar to the <code>NOT</code> operator, a mask needs to be used to get back a bit in the correct size. We know beforehand that the final number will be <code>s</code> bits, so a mask of <code>((1 &lt;&lt; s) - 1)</code> can be used.</em></p>
-<p><em><code>1 &lt;&lt; s</code> will create a bit 10...0 with <code>s</code> number of 0's. subtracting 1 from that will return 11...1 with <code>s-1</code> number of 1's</em></p>
-</blockquote>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=60ab1f90">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=15d49f3b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8259,19 +8246,7 @@ Right shift by 3:                                                 00010101
 <div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b10010011</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">s</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1">#size of the binary number in bits</span>
-
-<span class="n">original</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"            </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">b</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">intermediate_step_1</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"          </span><span class="si">{</span><span class="n">green</span><span class="p">(</span><span class="s1">'00'</span><span class="p">)</span><span class="si">}</span><span class="s2">100100   </span><span class="si">{</span><span class="n">red</span><span class="p">(</span><span class="s1">'11'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">intermediate_step_2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">" </span><span class="si">{</span><span class="n">red</span><span class="p">(</span><span class="s1">'100100'</span><span class="p">)</span><span class="si">}</span><span class="s2">   11</span><span class="si">{</span><span class="n">green</span><span class="p">(</span><span class="s1">'000000'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"          </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">n</span><span class="p">))</span><span class="o">&amp;</span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">b</span><span class="si">}</span><span class="s2">"</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Original:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">original</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Remove </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> from the right, add </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> zeros to the left:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">intermediate_step_1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Remove </span><span class="si">{</span><span class="n">s</span><span class="o">-</span><span class="n">n</span><span class="si">}</span><span class="s1"> from the left, add </span><span class="si">{</span><span class="n">s</span><span class="o">-</span><span class="n">n</span><span class="si">}</span><span class="s1"> zeros to the right:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">intermediate_step_2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Combine results:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">result</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sha256</span><span class="p">(</span><span class="s1">'Hello there'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8281,30 +8256,15 @@ Right shift by 3:                                                 00010101
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Original:                                                          10010011
-Remove 2 from the right, add 2 zeros to the left:                <span class="ansi-green-fg">00</span>100100   <span class="ansi-red-fg">11</span>
-Remove 6 from the left, add 6 zeros to the right:       <span class="ansi-red-fg">100100</span>   11<span class="ansi-green-fg">000000</span>
-Combine results:                                                 11100100
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'4e47826698bb4630fb4451010062fadbf85d61427cbdfaed7ad0f23f239bed89'</pre>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=888929a7">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Rotate-Left-Operation">Rotate Left Operation<a class="anchor-link" href="#Rotate-Left-Operation">¶</a></h3><p>Opposite of the Rotate Right Operation. Slides bits left by <code>n</code> positions, but instead of discarding the bits that fall off, they wrap around to the right side.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d4d05d01">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f129341d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8312,19 +8272,7 @@ Combine results:                                                 11100100
 <div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mb">0b10010011</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">s</span> <span class="o">=</span> <span class="mi">8</span> <span class="c1">#size of the binary number in bits</span>
-
-<span class="n">original</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"            </span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">b</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">intermediate_step_1</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"           </span><span class="si">{</span><span class="n">red</span><span class="p">(</span><span class="s1">'10'</span><span class="p">)</span><span class="si">}</span><span class="s2"> 010011</span><span class="si">{</span><span class="n">green</span><span class="p">(</span><span class="s1">'00'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">intermediate_step_2</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"              </span><span class="si">{</span><span class="n">green</span><span class="p">(</span><span class="s1">'000000'</span><span class="p">)</span><span class="si">}</span><span class="s2">10 </span><span class="si">{</span><span class="n">red</span><span class="p">(</span><span class="s1">'010011'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
-<span class="n">result</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"              </span><span class="si">{</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">n</span><span class="p">))</span><span class="o">&amp;</span><span class="p">((</span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s2">0</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">b</span><span class="si">}</span><span class="s2">"</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Original:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">original</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Remove </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> from the left, add </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1"> zeros to the right:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">intermediate_step_1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Remove </span><span class="si">{</span><span class="n">s</span><span class="o">-</span><span class="n">n</span><span class="si">}</span><span class="s1"> from the right, add </span><span class="si">{</span><span class="n">s</span><span class="o">-</span><span class="n">n</span><span class="si">}</span><span class="s1"> zeros to the left:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">intermediate_step_2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="sa">f</span><span class="s1">'Combine results:'</span><span class="si">:</span><span class="s2">&lt;</span><span class="si">{</span><span class="mi">55</span><span class="si">}}{</span><span class="n">result</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sha256</span><span class="p">(</span><span class="s1">'May the Force be with you'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8334,14 +8282,41 @@ Combine results:                                                 11100100
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Original:                                                          10010011
-Remove 2 from the left, add 2 zeros to the right:                 <span class="ansi-red-fg">10</span> 010011<span class="ansi-green-fg">00</span>
-Remove 6 from the right, add 6 zeros to the left:                    <span class="ansi-green-fg">000000</span>10 <span class="ansi-red-fg">010011</span>
-Combine results:                                                     01001110
-</pre>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'adf76935714ead08f9cb04c2c8f41b56f417aeab982ccbf0d29922f3da366145'</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7d411ec7">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sha256</span><span class="p">(</span><span class="s2">"""Never gonna give you up</span>
+<span class="s2">Never gonna let you down</span>
+<span class="s2">Never gonna run around and desert you</span>
+<span class="s2">Never gonna make you cry</span>
+<span class="s2">Never gonna say goodbye</span>
+<span class="s2">Never gonna tell a lie and hurt you"""</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>'447c444bf657877bd1a035a38385f271820bb95be8cbc5b8678667d219c19e36'</pre>
 </div>
 </div>
 </div>
