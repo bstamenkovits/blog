@@ -8,6 +8,8 @@ Most of the input data has `valid_from`/`valid_to` or `start_date`/`end_date` co
 
 This document outlines the general strategy on how to retain the temporal validty of data points after they are joined in tables/models.
 
+* TOC
+{:toc}
 
 ## Example
 The best way to describe the strategy is through the use of an example in which there are two tables (table A & table B), which are joined together. Both tables have a

@@ -5,6 +5,9 @@ image: python-parallel.jpg
 ---
 The terms *paralel* and *multi-threading* and *concurrency* are often used interchangably, however in the context of Python there are very stark differences between these various terms. This article goes into the subtle and not-so-subtle differences between these concepts.
 
+* TOC
+{:toc}
+
 Traditionally a computer works by performing tasks synchronously:
 * start task1
 * when task1 is finished start task2

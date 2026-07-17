@@ -5,6 +5,9 @@ image:
 ---
 Imagine having a table with valid from and valid to timestamps. There may be cases where there is some overlap between two timestamps, resulting in redundant data.
 
+* TOC
+{:toc}
+
 In the example below there are two records describing `property_b`to be `null`between 0 and 1, similarly there are two records describing `property_b`to be `null`between 4 and 10.
 ![alt text]({{ site.baseurl }}/assets/images/2025-07-30-gaps-and-islands/islands_data.png)
 

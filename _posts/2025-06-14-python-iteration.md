@@ -6,6 +6,8 @@ image: python-iteration.jpg
 
 Like many others, my love for programming began with the desire to automate; *Iteration* forms one of the core pillars that allows us to do so. This article takes a peek under the hood of Python to see how this programming language implements iteration. We will start with the humble for-loop, and work our way down to iterators, generators, and co-routines.
 
+* TOC
+{:toc}
 
 ## Sequence
 
